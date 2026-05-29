@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "input_song_id": "POP909_026",
+    "target_style": "lo-fi chill",
+    "system_version": "multi_agent_v2_heterogeneous",
+    "timestamp": "2026-05-28T08:37:14",
+    "termination_status": "single_call_baseline",
+    "rounds_used": 0,
+    "hard_rule_check": {
+      "passed": true,
+      "violations": [],
+      "warnings": []
+    }
+  },
+  "preserved": {
+    "melody_source": "input.MELODY_track",
+    "key": "G major",
+    "num_bars": 65,
+    "section_structure": [
+      {
+        "name": "A",
+        "start_bar": 1,
+        "end_bar": 16
+      },
+      {
+        "name": "B",
+        "start_bar": 17,
+        "end_bar": 32
+      },
+      {
+        "name": "C",
+        "start_bar": 33,
+        "end_bar": 48
+      },
+      {
+        "name": "Outro",
+        "start_bar": 49,
+        "end_bar": 65
+      }
+    ]
+  },
+  "transformations": {
+    "chord_progression": [
+      {
+        "bar": 1,
+        "chord": "N"
+      },
+      {
+        "bar": 2,
+        "chord": "N"
+      },
+      {
+        "bar": 3,
+        "chord": "N"
+      },
+      {
+        "bar": 4,
+        "chord": "N"
+      },
+      {
+        "bar": 5,
+        "chord": "N"
+      },
+      {
+        "bar": 6,
+        "chord": "G:sus2"
+      },
+      {
+        "bar": 7,
+        "chord": "G:sus2"
+      },
+      {
+        "bar": 8,
+        "chord": "G:sus2"
+      }
+    ],
+    "rhythm_pattern": "lofi_swung_16th",
+    "tempo_bpm": 80,
+    "voicing_style": "spread_with_9ths",
+    "texture_density": 0.4,
+    "instrumentation": {
+      "lead": "rhodes_electric_piano",
+      "bass": "upright_bass",
+      "percussion": "lofi_brushed_kit",
+      "ambient": "vinyl_crackle"
+    }
+  },
+  "natural_language_summary": "Re-arrange POP909_026 in G major as a lo-fi chill track while keeping the original melody and 65-bar structure. Set the tempo to 80 BPM and use a lofi swung 16th groove with a mellow Rhodes lead and upright bass foundation. Keep the opening harmony excerpt aligned to the input’s first bars (starting with N then settling into G:sus2). Add lo-fi brushed kit percussion and subtle vinyl crackle for the target atmosphere."
+}

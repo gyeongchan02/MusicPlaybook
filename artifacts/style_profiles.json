@@ -1,0 +1,136 @@
+{
+  "lo-fi chill": {
+    "clap_text_prompt": "lo-fi hip-hop chill beats, mellow piano, low tempo",
+    "tempo_range_bpm": [
+      70,
+      90
+    ],
+    "preferred_chord_extensions": [
+      "maj7",
+      "maj9",
+      "min7",
+      "min11"
+    ],
+    "rhythm_pattern_options": [
+      "lofi_swung_16th",
+      "lofi_straight_8th"
+    ],
+    "voicing_style_options": [
+      "spread_with_9ths",
+      "drop2_voicing"
+    ],
+    "texture_density_range": [
+      0.3,
+      0.5
+    ],
+    "instrumentation_options": [
+      {
+        "lead": "rhodes_electric_piano",
+        "bass": "upright_bass",
+        "percussion": "lofi_brushed_kit",
+        "ambient": "vinyl_crackle"
+      }
+    ]
+  },
+  "upbeat jazz": {
+    "clap_text_prompt": "upbeat jazz piano trio, swing rhythm, walking bass",
+    "tempo_range_bpm": [
+      120,
+      160
+    ],
+    "preferred_chord_extensions": [
+      "dom7",
+      "min7",
+      "maj7",
+      "alt",
+      "min9",
+      "13"
+    ],
+    "rhythm_pattern_options": [
+      "jazz_swing_8th",
+      "jazz_straight_4th"
+    ],
+    "voicing_style_options": [
+      "rootless_LH_voicing",
+      "shell_voicing"
+    ],
+    "texture_density_range": [
+      0.5,
+      0.8
+    ],
+    "instrumentation_options": [
+      {
+        "lead": "acoustic_piano",
+        "bass": "walking_upright_bass",
+        "percussion": "jazz_brushed_kit",
+        "ambient": null
+      }
+    ]
+  },
+  "cinematic ballad": {
+    "clap_text_prompt": "cinematic piano ballad, orchestral strings, emotional",
+    "tempo_range_bpm": [
+      60,
+      80
+    ],
+    "preferred_chord_extensions": [
+      "maj7",
+      "sus2",
+      "add9",
+      "min7"
+    ],
+    "rhythm_pattern_options": [
+      "ballad_arpeggio",
+      "ballad_sustained_pads"
+    ],
+    "voicing_style_options": [
+      "open_voicing_wide_spread",
+      "block_chords"
+    ],
+    "texture_density_range": [
+      0.4,
+      0.7
+    ],
+    "instrumentation_options": [
+      {
+        "lead": "concert_grand_piano",
+        "bass": "orchestral_double_bass",
+        "percussion": null,
+        "ambient": "string_pad_lush"
+      }
+    ]
+  },
+  "bossa nova": {
+    "clap_text_prompt": "bossa nova, brazilian guitar, soft latin rhythm",
+    "tempo_range_bpm": [
+      110,
+      140
+    ],
+    "preferred_chord_extensions": [
+      "maj7",
+      "min7",
+      "dom7",
+      "min7b5",
+      "add9"
+    ],
+    "rhythm_pattern_options": [
+      "bossa_clave",
+      "samba_lite"
+    ],
+    "voicing_style_options": [
+      "bossa_guitar_voicing"
+    ],
+    "texture_density_range": [
+      0.4,
+      0.6
+    ],
+    "instrumentation_options": [
+      {
+        "lead": "nylon_guitar",
+        "bass": "fretless_bass",
+        "percussion": "bossa_shaker_brush",
+        "ambient": null
+      }
+    ]
+  }
+}
