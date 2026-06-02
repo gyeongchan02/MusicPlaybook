@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "description": "Deterministic arrangement engines keyed by spec enums. Add new styles here without changing Python modules.",
+  "instruments": {
+    "rhodes_electric_piano": {
+      "gm_program": "Electric Piano 1",
+      "track_name": "rhodes",
+      "midi_channel": 0
+    },
+    "upright_bass": {
+      "gm_program": "Acoustic Bass",
+      "track_name": "upright_bass",
+      "midi_channel": 0
+    },
+    "lofi_brushed_kit": {
+      "is_drum": true,
+      "track_name": "drums"
+    }
+  },
+  "rhythm_patterns": {
+    "lofi_swung_16th": {
+      "grid": "16th",
+      "swing_ratio": 0.66,
+      "comp_active_steps": [0, 2, 5, 7, 10, 12, 14],
+      "comp_velocity": 58,
+      "comp_duration_ratio": 0.42,
+      "bass_pattern_steps": [0, 8],
+      "bass_velocity": 82,
+      "bass_duration_ratio": 0.88,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 78,
+        "snare_velocity": 62,
+        "hat_velocity": 40
+      }
+    },
+    "lofi_straight_8th": {
+      "grid": "8th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 2, 4, 6],
+      "comp_velocity": 60,
+      "comp_duration_ratio": 0.5,
+      "bass_pattern_steps": [0, 4],
+      "bass_velocity": 84,
+      "bass_duration_ratio": 0.9,
+      "drum": {
+        "kick_steps": [0, 4],
+        "snare_steps": [2, 6],
+        "hat_steps": [1, 3, 5, 7],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 80,
+        "snare_velocity": 64,
+        "hat_velocity": 42
+      }
+    }
+  },
+  "voicing_styles": {
+    "spread_with_9ths": {
+      "strategy": "spread",
+      "base_midi": 60,
+      "spread_semitones": [0, 7, 14, 21],
+      "add_ninth": true,
+      "max_voices": 5,
+      "velocity": 62
+    },
+    "drop2_voicing": {
+      "strategy": "drop2",
+      "base_midi": 55,
+      "drop_intervals": [0, 7, 10, 14],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 64
+    }
+  }
+}

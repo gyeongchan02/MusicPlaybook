@@ -1,0 +1,5 @@
+pretty_midi>=0.2.10
+music21>=9.1.0
+pychord>=1.4.0
+numpy>=1.24.0
+soundfile>=0.12.0
