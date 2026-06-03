@@ -81,6 +81,53 @@ print(f"style_text_embs: {style_text_embs.shape}")
 
 # Stack vector columns to matrices for batch ops
 chord_mat  = np.stack(features["chord_histogram"].apply(np.asarray).values).astype(np.float32)
+
+# === Section 1.2: Chord-to-bar conversion helper ===
+def chords_to_bar_map(chord_entries, tempo: float, ts_num: int = 4) -> list[dict]:
+    """Convert time-based chord_progression entries to a full bar-by-bar chord map.
+
+    - Skips leading 'N' tokens (treated as intro silence).
+    - Non-leading 'N' tokens are preserved as-is.
+    - Each output entry is {"bar": int (1-indexed), "chord": str}.
+    - When multiple entries map to the same bar, the first (earliest start) wins.
+
+    Args:
+        chord_entries: list of dicts with keys 'start', 'end', 'label'  (seconds)
+        tempo: BPM of the song
+        ts_num: numerator of time signature (default 4 for 4/4)
+    """
+    if not chord_entries:
+        return []
+
+    sec_per_bar = ts_num * 60.0 / tempo
+
+    # Skip leading N tokens (intro)
+    first_non_n = 0
+    for i, e in enumerate(chord_entries):
+        label = e.get("label", "N") if isinstance(e, dict) else e[2]
+        if label != "N":
+            first_non_n = i
+            break
+    active_entries = chord_entries[first_non_n:]
+
+    # Determine the offset: the start time of the first non-N chord defines bar 1
+    if not active_entries:
+        return []
+    first_e = active_entries[0]
+    offset_sec = first_e.get("start", 0) if isinstance(first_e, dict) else first_e[0]
+
+    bar_map = {}  # bar_num -> chord label (first occurrence wins)
+    for e in active_entries:
+        if isinstance(e, dict):
+            start, end, label = e["start"], e["end"], e["label"]
+        else:
+            start, end, label = e[0], e[1], e[2]
+        # Map to 1-indexed bar number relative to the first non-N chord
+        bar_num = int((start - offset_sec) / sec_per_bar) + 1
+        if bar_num not in bar_map:
+            bar_map[bar_num] = label
+
+    return [{"bar": b, "chord": c} for b, c in sorted(bar_map.items())]
 pcd_mat    = np.stack(features["pitch_class_dist"].apply(np.asarray).values).astype(np.float32)
 rhythm_mat = np.stack(features["rhythm_pattern"].apply(np.asarray).values).astype(np.float32)
 
@@ -149,7 +196,11 @@ def retrieve_style_refs(target_style: str, k: int = 5) -> dict:
             "mode":         row["mode"],
             "tempo":        float(row["tempo"]),
             "note_density": float(row["note_density"]),
-            "chord_progression_preview": list(row["chord_progression"][:8]),
+            "chord_progression_by_bar": chords_to_bar_map(
+                list(row["chord_progression"]),
+                tempo=float(row["tempo"]),
+                ts_num=4,
+            ),
         })
         tempos.append(float(row["tempo"]))
         ndens.append(float(row["note_density"]))
@@ -1082,7 +1133,12 @@ retrieval_a_payload = {
         "tempo":             input_tempo,
         "num_bars":          num_bars,
         "note_density":      float(demo_row["note_density"]),
-        "chord_progression_preview": list(demo_row["chord_progression"][:8]),
+        # Full bar-by-bar chord progression (leading N intro stripped, seconds -> bar numbers)
+        "chord_progression_by_bar": chords_to_bar_map(
+            list(demo_row["chord_progression"]),
+            tempo=input_tempo,
+            ts_num=int(demo_row.get("ts_num", 4)),
+        ),
     },
     "comparable_pieces": retrieve_similar(demo_idx, k=5),
 }
