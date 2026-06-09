@@ -1,0 +1,51 @@
+{
+  "per_client": [
+    {
+      "name": "TraditionGuardian",
+      "model": "gpt-5.4-nano",
+      "calls": 4,
+      "tokens_in": 6665,
+      "tokens_out": 2288,
+      "cost_usd": 0.0
+    },
+    {
+      "name": "StyleTranslator",
+      "model": "gpt-5.4-nano",
+      "calls": 4,
+      "tokens_in": 9605,
+      "tokens_out": 1965,
+      "cost_usd": 0.0
+    },
+    {
+      "name": "MusicTheoryValidator",
+      "model": "gpt-5.4-nano",
+      "calls": 3,
+      "tokens_in": 5036,
+      "tokens_out": 3281,
+      "cost_usd": 0.0
+    },
+    {
+      "name": "Synthesizer",
+      "model": "gpt-5.4-nano",
+      "calls": 1,
+      "tokens_in": 9061,
+      "tokens_out": 815,
+      "cost_usd": 0.0
+    },
+    {
+      "name": "SingleAgentBaseline",
+      "model": "gpt-5.4-nano",
+      "calls": 1,
+      "tokens_in": 2360,
+      "tokens_out": 820,
+      "cost_usd": 0.0
+    }
+  ],
+  "embedding": {
+    "calls": 10,
+    "tokens": 1550,
+    "cost_usd": 3.1e-05
+  },
+  "total_cost_usd": 3.1e-05,
+  "total_llm_calls": 13
+}

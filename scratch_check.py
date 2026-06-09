@@ -1071,7 +1071,7 @@ OUTPUT FORMAT:
 """
 
 def run_baseline(user_query, retrieval_a, retrieval_b,
-                 input_song_id, target_style, input_key, input_mode, input_tempo, num_bars) -> dict:
+                 input_song_id, target_style, input_key, input_mode, input_tempo, num_bars, original_chord_progression) -> dict:
     metadata = {
         "input_song_id": input_song_id,
         "target_style":  target_style,
@@ -1093,6 +1093,8 @@ INPUT-SONG CONTEXT (for the preserved block):
 - input_song_id: {input_song_id}
 - key: {input_key} {input_mode}
 - num_bars: {num_bars}
+- original_chord_progression:
+{json.dumps(original_chord_progression, ensure_ascii=False, indent=2)}
 
 METADATA to embed verbatim:
 {json.dumps(metadata, ensure_ascii=False, indent=2)}
@@ -1205,7 +1207,16 @@ for d_idx, d_style, _ in debate_logs:
     d_input_key = features.iloc[d_idx]["key"]
     d_input_mode = features.iloc[d_idx]["mode"]
     d_input_tempo = float(features.iloc[d_idx]["tempo"])
-    d_num_bars = int(features.iloc[d_idx]["num_bars"])
+    # 30초 기준으로 자른 코드 진행 
+    d_original_chords = chords_to_bar_map(
+        list(features.iloc[d_idx]["chord_progression"]),
+        tempo=d_input_tempo,
+        ts_num=int(features.iloc[d_idx].get("ts_num", 4)),
+        max_sec=30.0
+    )
+    
+    # 자른 코드 진행을 기준으로 실제 마디 수(num_bars) 동적 계산
+    d_num_bars = d_original_chords[-1]["bar"] if d_original_chords else 1
     d_song_id = features.iloc[d_idx]["song_id"]
     
     d_retrieval_a = retrieve_similar(d_idx, k=3)
@@ -1213,7 +1224,7 @@ for d_idx, d_style, _ in debate_logs:
     
     bspec = run_baseline(
         d_query, d_retrieval_a, d_retrieval_b,
-        d_song_id, d_style, d_input_key, d_input_mode, d_input_tempo, d_num_bars,
+        d_song_id, d_style, d_input_key, d_input_mode, d_input_tempo, d_num_bars, d_original_chords
     )
     baseline_specs.append(bspec)
     print(f"Baseline for {d_song_id} ({d_style})")
