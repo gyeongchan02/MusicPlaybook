@@ -16,7 +16,13 @@ from pathlib import Path
 from .fluidsynth_render import render_midi_with_fluidsynth
 from .pipeline import ArrangementPipeline
 from .reference_wav import read_reference_duration, reference_wav_path
-from .spec_loader import get_preserved, get_song_id, load_spec
+from .spec_loader import (
+    get_preserved,
+    get_song_id,
+    get_transformations,
+    load_spec,
+    summarize_active_spec,
+)
 
 
 def main() -> None:
@@ -41,10 +47,35 @@ def main() -> None:
     )
     parser.add_argument("--style-definitions", type=Path, default=None)
     parser.add_argument("--no-drums", action="store_true")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print which spec fields are used for rendering",
+    )
     args = parser.parse_args()
 
     repo_root = args.repo_root or Path(__file__).resolve().parents[1]
     spec = load_spec(args.spec)
+    if args.verbose:
+        import json
+
+        summary = summarize_active_spec(spec, variant=args.variant)
+        print("Active arrangement settings:")
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
+        transform = get_transformations(spec, variant=args.variant)
+        if "primary_spec" in spec and args.variant == "primary":
+            print(
+                "Note: dual-output spec — editing only preserved.* does not change audio; "
+                "edit primary_spec.transformations or use --variant alternative."
+            )
+        if not transform.get("chord_progression") and not transform.get(
+            "chord_progression_preview"
+        ):
+            print(
+                "Note: no chord_progression in transformations — "
+                "using preserved.original_chord_progression + chord_midi.txt."
+            )
     preserved = get_preserved(spec)
     song_id = get_song_id(spec, preserved)
     ref_wav = args.reference_wav or reference_wav_path(repo_root, song_id)
@@ -85,6 +116,10 @@ def main() -> None:
             f"Length mismatch: arranged {out_info.frames}@{out_info.samplerate} "
             f"vs reference {ref_frames}@{ref_sr}"
         )
+    print(
+        f"timing: source={result.source_tempo_bpm} bpm → target={result.tempo_bpm} bpm, "
+        f"downbeat origin={result.beat_origin:.3f}s"
+    )
 
 
 if __name__ == "__main__":

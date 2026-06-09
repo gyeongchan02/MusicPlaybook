@@ -70,13 +70,14 @@ def pop909_song_dir(dataset_root: Path, song_id: str) -> Path:
     return dataset_root / "POP909" / folder
 
 
-def default_paths(repo_root: Path, song_id: str) -> tuple[Path, Path]:
+def default_paths(repo_root: Path, song_id: str) -> tuple[Path, Path, Path]:
     song_dir = pop909_song_dir(repo_root / "data" / "POP909-Dataset", song_id)
     numeric = song_id.replace("POP909_", "").lstrip("0") or "0"
     folder = numeric.zfill(3) if numeric.isdigit() else numeric
     midi_path = song_dir / f"{folder}.mid"
     chord_path = song_dir / "chord_midi.txt"
-    return midi_path, chord_path
+    beat_path = song_dir / "beat_midi.txt"
+    return midi_path, chord_path, beat_path
 
 
 def estimate_num_bars(pm: pretty_midi.PrettyMIDI, beats_per_bar: int = 4) -> int:

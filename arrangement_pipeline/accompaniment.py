@@ -5,8 +5,9 @@ from __future__ import annotations
 import pretty_midi
 
 from .chords import ParsedChord, parse_chord_symbol
-from .rhythm import select_active_steps, step_duration, steps_per_bar, swung_step_time
+from .rhythm import select_active_steps, step_duration, steps_per_bar
 from .style_registry import get_instrument, get_rhythm_pattern, get_voicing_style
+from .timing import BeatGrid
 from .voicing import build_voicing
 
 
@@ -39,6 +40,7 @@ def generate_accompaniment(
     voicing_style: str,
     texture_density: float,
     instrumentation: dict,
+    beat_grid: BeatGrid | None = None,
     style_definitions_path: str | None = None,
     include_drums: bool = True,
 ) -> list[pretty_midi.Instrument]:
@@ -77,8 +79,15 @@ def generate_accompaniment(
     drum_cfg = rhythm_cfg.get("drum", {})
 
     for bar_idx in range(num_bars):
-        bar_start = bar_idx * bar_sec
-        bar_end = bar_start + bar_sec
+        if beat_grid is not None:
+            src_start, src_end = beat_grid.bar_bounds(bar_idx)
+            bar_start = beat_grid.map_time(src_start, tempo_bpm)
+            bar_end = beat_grid.map_time(src_end, tempo_bpm)
+            bar_sec_local = bar_end - bar_start
+        else:
+            bar_start = bar_idx * bar_sec
+            bar_end = bar_start + bar_sec
+            bar_sec_local = bar_sec
         bar_segments = [
             (s, e, sym)
             for s, e, sym in segments
@@ -95,13 +104,29 @@ def generate_accompaniment(
             voices = build_voicing(parsed, voicing_cfg)
             root_bass = 36 + parsed.root_pc
             comp_vel = int(voicing_cfg.get("velocity", rhythm_cfg.get("comp_velocity", 58)))
-            comp_dur = rhythm_cfg.get("comp_duration_ratio", 0.42) * step_duration(bar_sec, grid)
+            comp_dur = rhythm_cfg.get("comp_duration_ratio", 0.42) * step_duration(
+                bar_sec_local, grid
+            )
             bass_vel = int(rhythm_cfg.get("bass_velocity", 82))
-            bass_dur = rhythm_cfg.get("bass_duration_ratio", 0.88) * bar_sec / max(1, len(bass_steps))
+            bass_dur = (
+                rhythm_cfg.get("bass_duration_ratio", 0.88)
+                * bar_sec_local
+                / max(1, len(bass_steps))
+            )
 
             n_steps = steps_per_bar(grid)
-            for step in range(n_steps):
-                t = swung_step_time(bar_start, step, bar_sec, grid, swing)
+            if beat_grid is not None:
+                step_times = beat_grid.step_times_for_bar(
+                    bar_idx, tempo_bpm, n_steps=n_steps, swing_ratio=swing
+                )
+            else:
+                from .rhythm import swung_step_time
+
+                step_times = [
+                    swung_step_time(bar_start, step, bar_sec_local, grid, swing)
+                    for step in range(n_steps)
+                ]
+            for step, t in enumerate(step_times):
                 if t < seg_start or t >= seg_end:
                     continue
 
@@ -149,13 +174,13 @@ def build_full_chord_timeline(
     tempo_bpm: float,
     num_bars: int,
     bar_overrides: dict[int, str] | None = None,
+    beat_grid: BeatGrid | None = None,
 ) -> list[tuple[float, float, str]]:
     """Merge POP909 chord file with optional per-bar spec overrides."""
     from .pop909 import ChordSegment, bar_starts, segments_for_bar
 
     bar_overrides = bar_overrides or {}
     bar_sec = 60.0 / tempo_bpm * 4.0
-    starts = bar_starts(tempo_bpm, num_bars)
     timeline: list[tuple[float, float, str]] = []
 
     ann = [
@@ -165,11 +190,28 @@ def build_full_chord_timeline(
         for s in annotation_segments
     ]
 
-    for bar_idx, bar_start in enumerate(starts, start=1):
-        bar_end = bar_start + bar_sec
-        if bar_idx in bar_overrides:
-            timeline.append((bar_start, bar_end, bar_overrides[bar_idx]))
+    for bar_idx in range(num_bars):
+        bar_number = bar_idx + 1
+        if beat_grid is not None:
+            src_start, src_end = beat_grid.bar_bounds(bar_idx)
+            bar_start = beat_grid.map_time(src_start, tempo_bpm)
+            bar_end = beat_grid.map_time(src_end, tempo_bpm)
+        else:
+            src_start = bar_idx * bar_sec
+            src_end = src_start + bar_sec
+            bar_start, bar_end = src_start, src_end
+        if bar_number in bar_overrides:
+            timeline.append((bar_start, bar_end, bar_overrides[bar_number]))
             continue
-        for piece in segments_for_bar(ann, bar_start, bar_end):
-            timeline.append(piece)
+        for seg_start, seg_end, symbol in segments_for_bar(ann, src_start, src_end):
+            if beat_grid is not None:
+                timeline.append(
+                    (
+                        beat_grid.map_time(seg_start, tempo_bpm),
+                        beat_grid.map_time(seg_end, tempo_bpm),
+                        symbol,
+                    )
+                )
+            else:
+                timeline.append((seg_start, seg_end, symbol))
     return timeline

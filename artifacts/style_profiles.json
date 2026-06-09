@@ -1,136 +1,114 @@
 {
   "lo-fi chill": {
     "clap_text_prompt": "lo-fi hip-hop chill beats, mellow piano, low tempo",
-    "tempo_range_bpm": [
-      70,
-      90
-    ],
-    "preferred_chord_extensions": [
-      "maj7",
-      "maj9",
-      "min7",
-      "min11"
-    ],
-    "rhythm_pattern_options": [
-      "lofi_swung_16th",
-      "lofi_straight_8th"
-    ],
-    "voicing_style_options": [
-      "spread_with_9ths",
-      "drop2_voicing"
-    ],
-    "texture_density_range": [
-      0.3,
-      0.5
-    ],
-    "instrumentation_options": [
-      {
-        "lead": "rhodes_electric_piano",
-        "bass": "upright_bass",
-        "percussion": "lofi_brushed_kit",
-        "ambient": "vinyl_crackle"
-      }
-    ]
+    "tempo_range_bpm": [70, 90],
+    "preferred_chord_extensions": ["maj7", "maj9", "min7", "min11"],
+    "rhythm_pattern_options": ["lofi_swung_16th", "lofi_straight_8th"],
+    "voicing_style_options": ["spread_with_9ths", "drop2_voicing"],
+    "texture_density_range": [0.3, 0.5],
+    "instrumentation_options": [{
+      "lead": "rhodes_electric_piano",
+      "bass": "upright_bass",
+      "percussion": "lofi_brushed_kit",
+      "ambient": "vinyl_crackle"
+    }]
   },
   "upbeat jazz": {
     "clap_text_prompt": "upbeat jazz piano trio, swing rhythm, walking bass",
-    "tempo_range_bpm": [
-      120,
-      160
-    ],
-    "preferred_chord_extensions": [
-      "dom7",
-      "min7",
-      "maj7",
-      "alt",
-      "min9",
-      "13"
-    ],
-    "rhythm_pattern_options": [
-      "jazz_swing_8th",
-      "jazz_straight_4th"
-    ],
-    "voicing_style_options": [
-      "rootless_LH_voicing",
-      "shell_voicing"
-    ],
-    "texture_density_range": [
-      0.5,
-      0.8
-    ],
-    "instrumentation_options": [
-      {
-        "lead": "acoustic_piano",
-        "bass": "walking_upright_bass",
-        "percussion": "jazz_brushed_kit",
-        "ambient": null
-      }
-    ]
+    "tempo_range_bpm": [120, 160],
+    "preferred_chord_extensions": ["dom7", "min7", "maj7", "alt", "min9", "13"],
+    "rhythm_pattern_options": ["jazz_swing_8th", "jazz_straight_4th"],
+    "voicing_style_options": ["rootless_LH_voicing", "shell_voicing"],
+    "texture_density_range": [0.5, 0.8],
+    "instrumentation_options": [{
+      "lead": "acoustic_piano",
+      "bass": "walking_upright_bass",
+      "percussion": "jazz_brushed_kit",
+      "ambient": null
+    }]
   },
   "cinematic ballad": {
     "clap_text_prompt": "cinematic piano ballad, orchestral strings, emotional",
-    "tempo_range_bpm": [
-      60,
-      80
-    ],
-    "preferred_chord_extensions": [
-      "maj7",
-      "sus2",
-      "add9",
-      "min7"
-    ],
-    "rhythm_pattern_options": [
-      "ballad_arpeggio",
-      "ballad_sustained_pads"
-    ],
-    "voicing_style_options": [
-      "open_voicing_wide_spread",
-      "block_chords"
-    ],
-    "texture_density_range": [
-      0.4,
-      0.7
-    ],
-    "instrumentation_options": [
-      {
-        "lead": "concert_grand_piano",
-        "bass": "orchestral_double_bass",
-        "percussion": null,
-        "ambient": "string_pad_lush"
-      }
-    ]
+    "tempo_range_bpm": [60, 80],
+    "preferred_chord_extensions": ["maj7", "sus2", "add9", "min7"],
+    "rhythm_pattern_options": ["ballad_arpeggio", "ballad_sustained_pads"],
+    "voicing_style_options": ["open_voicing_wide_spread", "block_chords"],
+    "texture_density_range": [0.4, 0.7],
+    "instrumentation_options": [{
+      "lead": "concert_grand_piano",
+      "bass": "orchestral_double_bass",
+      "percussion": null,
+      "ambient": "string_pad_lush"
+    }]
   },
   "bossa nova": {
     "clap_text_prompt": "bossa nova, brazilian guitar, soft latin rhythm",
-    "tempo_range_bpm": [
-      110,
-      140
-    ],
-    "preferred_chord_extensions": [
-      "maj7",
-      "min7",
-      "dom7",
-      "min7b5",
-      "add9"
-    ],
-    "rhythm_pattern_options": [
-      "bossa_clave",
-      "samba_lite"
-    ],
-    "voicing_style_options": [
-      "bossa_guitar_voicing"
-    ],
-    "texture_density_range": [
-      0.4,
-      0.6
-    ],
-    "instrumentation_options": [
-      {
-        "lead": "nylon_guitar",
-        "bass": "fretless_bass",
-        "percussion": "bossa_shaker_brush",
-        "ambient": null
-      }
-    ]
+    "tempo_range_bpm": [110, 140],
+    "preferred_chord_extensions": ["maj7", "min7", "dom7", "min7b5", "add9"],
+    "rhythm_pattern_options": ["bossa_clave", "samba_lite"],
+    "voicing_style_options": ["bossa_guitar_voicing"],
+    "texture_density_range": [0.4, 0.6],
+    "instrumentation_options": [{
+      "lead": "nylon_guitar",
+      "bass": "fretless_bass",
+      "percussion": "bossa_shaker_brush",
+      "ambient": null
+    }]
+  },
+  "acoustic pop": {
+    "clap_text_prompt": "acoustic pop unplugged arrangement, singer-songwriter guitar and light drums",
+    "tempo_range_bpm": [80, 110],
+    "preferred_chord_extensions": ["maj", "min", "sus2", "add9", "sus4"],
+    "rhythm_pattern_options": ["pop_strum_8th", "pop_arpeggio_16th"],
+    "voicing_style_options": ["open_triad_spread", "capo_style_tight"],
+    "texture_density_range": [0.45, 0.65],
+    "instrumentation_options": [{
+      "lead": "steel_string_guitar",
+      "bass": "acoustic_bass",
+      "percussion": "pop_light_kit",
+      "ambient": null
+    }]
+  },
+  "R&B soul": {
+    "clap_text_prompt": "R&B soul neo-soul arrangement, warm Rhodes, electric bass, laid-back groove",
+    "tempo_range_bpm": [70, 95],
+    "preferred_chord_extensions": ["maj7", "min7", "min9", "maj9", "11"],
+    "rhythm_pattern_options": ["soul_laid_back_16th", "soul_straight_8th"],
+    "voicing_style_options": ["neo_soul_extensions", "soul_compact_voicing"],
+    "texture_density_range": [0.4, 0.6],
+    "instrumentation_options": [{
+      "lead": "rhodes_electric_piano",
+      "bass": "electric_bass_finger",
+      "percussion": "soul_drums",
+      "ambient": null
+    }]
+  },
+  "funk groove": {
+    "clap_text_prompt": "funk groove arrangement, syncopated clavinet stabs, tight bass and drums",
+    "tempo_range_bpm": [95, 120],
+    "preferred_chord_extensions": ["dom7", "min7", "9", "13", "min7b5"],
+    "rhythm_pattern_options": ["funk_syncopated_16th", "funk_straight_16th"],
+    "voicing_style_options": ["funk_stabs_tight", "funk_sparse_7ths"],
+    "texture_density_range": [0.5, 0.75],
+    "instrumentation_options": [{
+      "lead": "clavinet_lead",
+      "bass": "electric_bass_finger",
+      "percussion": "funk_drum_kit",
+      "ambient": null
+    }]
+  },
+  "gospel worship": {
+    "clap_text_prompt": "gospel worship arrangement, Hammond organ, shuffle groove, rich chord voicings",
+    "tempo_range_bpm": [70, 100],
+    "preferred_chord_extensions": ["maj7", "dom7", "min7", "sus4", "add9"],
+    "rhythm_pattern_options": ["gospel_shuffle_8th", "gospel_half_time"],
+    "voicing_style_options": ["gospel_rich_choir_spread", "gospel_hammond_blocks"],
+    "texture_density_range": [0.5, 0.8],
+    "instrumentation_options": [{
+      "lead": "hammond_organ",
+      "bass": "electric_bass_finger",
+      "percussion": "gospel_kit",
+      "ambient": null
+    }]
   }
 }

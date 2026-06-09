@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "description": "Deterministic arrangement engines keyed by spec enums. Add new styles here without changing Python modules.",
+  "version": 2,
+  "description": "Deterministic arrangement engines keyed by spec enums. One target style → one enum set; no multi-style mixing.",
   "instruments": {
     "rhodes_electric_piano": {
       "gm_program": "Electric Piano 1",
@@ -15,6 +15,85 @@
     "lofi_brushed_kit": {
       "is_drum": true,
       "track_name": "drums"
+    },
+    "acoustic_piano": {
+      "gm_program": "Acoustic Grand Piano",
+      "track_name": "piano",
+      "midi_channel": 0
+    },
+    "walking_upright_bass": {
+      "gm_program": "Acoustic Bass",
+      "track_name": "walking_bass",
+      "midi_channel": 0
+    },
+    "jazz_brushed_kit": {
+      "is_drum": true,
+      "track_name": "jazz_drums"
+    },
+    "concert_grand_piano": {
+      "gm_program": "Acoustic Grand Piano",
+      "track_name": "grand_piano",
+      "midi_channel": 0
+    },
+    "orchestral_double_bass": {
+      "gm_program": "Contrabass",
+      "track_name": "orchestral_bass",
+      "midi_channel": 0
+    },
+    "nylon_guitar": {
+      "gm_program": "Acoustic Guitar (nylon)",
+      "track_name": "nylon_guitar",
+      "midi_channel": 0
+    },
+    "fretless_bass": {
+      "gm_program": "Fretless Bass",
+      "track_name": "fretless_bass",
+      "midi_channel": 0
+    },
+    "bossa_shaker_brush": {
+      "is_drum": true,
+      "track_name": "bossa_drums"
+    },
+    "steel_string_guitar": {
+      "gm_program": "Acoustic Guitar (steel)",
+      "track_name": "acoustic_guitar",
+      "midi_channel": 0
+    },
+    "acoustic_bass": {
+      "gm_program": "Acoustic Bass",
+      "track_name": "acoustic_bass",
+      "midi_channel": 0
+    },
+    "pop_light_kit": {
+      "is_drum": true,
+      "track_name": "pop_drums"
+    },
+    "electric_bass_finger": {
+      "gm_program": "Electric Bass (finger)",
+      "track_name": "electric_bass",
+      "midi_channel": 0
+    },
+    "soul_drums": {
+      "is_drum": true,
+      "track_name": "soul_drums"
+    },
+    "clavinet_lead": {
+      "gm_program": "Clavi",
+      "track_name": "clavinet",
+      "midi_channel": 0
+    },
+    "funk_drum_kit": {
+      "is_drum": true,
+      "track_name": "funk_drums"
+    },
+    "hammond_organ": {
+      "gm_program": "Drawbar Organ",
+      "track_name": "hammond",
+      "midi_channel": 0
+    },
+    "gospel_kit": {
+      "is_drum": true,
+      "track_name": "gospel_drums"
     }
   },
   "rhythm_patterns": {
@@ -59,6 +138,280 @@
         "snare_velocity": 64,
         "hat_velocity": 42
       }
+    },
+    "jazz_swing_8th": {
+      "grid": "8th",
+      "swing_ratio": 0.67,
+      "comp_active_steps": [1, 3, 5, 7],
+      "comp_velocity": 72,
+      "comp_duration_ratio": 0.35,
+      "bass_pattern_steps": [0, 2, 4, 6],
+      "bass_velocity": 88,
+      "bass_duration_ratio": 0.55,
+      "drum": {
+        "kick_steps": [0, 4],
+        "snare_steps": [2, 6],
+        "hat_steps": [1, 3, 5, 7],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 85,
+        "snare_velocity": 70,
+        "hat_velocity": 55
+      }
+    },
+    "jazz_straight_4th": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 4, 8, 12],
+      "comp_velocity": 68,
+      "comp_duration_ratio": 0.3,
+      "bass_pattern_steps": [0, 4, 8, 12],
+      "bass_velocity": 86,
+      "bass_duration_ratio": 0.5,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 88,
+        "snare_velocity": 72,
+        "hat_velocity": 58
+      }
+    },
+    "ballad_arpeggio": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 4, 8, 12],
+      "comp_velocity": 52,
+      "comp_duration_ratio": 0.65,
+      "bass_pattern_steps": [0, 8],
+      "bass_velocity": 70,
+      "bass_duration_ratio": 0.95,
+      "drum": {}
+    },
+    "ballad_sustained_pads": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 8],
+      "comp_velocity": 48,
+      "comp_duration_ratio": 0.9,
+      "bass_pattern_steps": [0],
+      "bass_velocity": 68,
+      "bass_duration_ratio": 0.98,
+      "drum": {}
+    },
+    "bossa_clave": {
+      "grid": "16th",
+      "swing_ratio": 0.55,
+      "comp_active_steps": [2, 5, 10, 13],
+      "comp_velocity": 56,
+      "comp_duration_ratio": 0.45,
+      "bass_pattern_steps": [0, 6, 10],
+      "bass_velocity": 78,
+      "bass_duration_ratio": 0.75,
+      "drum": {
+        "kick_steps": [0, 10],
+        "snare_steps": [5, 13],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 72,
+        "snare_velocity": 48,
+        "hat_velocity": 36
+      }
+    },
+    "samba_lite": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 3, 6, 9, 12, 15],
+      "comp_velocity": 60,
+      "comp_duration_ratio": 0.38,
+      "bass_pattern_steps": [0, 4, 8, 12],
+      "bass_velocity": 80,
+      "bass_duration_ratio": 0.7,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 4, 6, 8, 10, 12, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 82,
+        "snare_velocity": 58,
+        "hat_velocity": 44
+      }
+    },
+    "pop_strum_8th": {
+      "grid": "8th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 2, 4, 6],
+      "comp_velocity": 64,
+      "comp_duration_ratio": 0.48,
+      "bass_pattern_steps": [0, 4],
+      "bass_velocity": 80,
+      "bass_duration_ratio": 0.85,
+      "drum": {
+        "kick_steps": [0, 4],
+        "snare_steps": [2, 6],
+        "hat_steps": [1, 3, 5, 7],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 82,
+        "snare_velocity": 68,
+        "hat_velocity": 48
+      }
+    },
+    "pop_arpeggio_16th": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 2, 4, 6, 8, 10, 12, 14],
+      "comp_velocity": 58,
+      "comp_duration_ratio": 0.4,
+      "bass_pattern_steps": [0, 8],
+      "bass_velocity": 78,
+      "bass_duration_ratio": 0.88,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 76,
+        "snare_velocity": 60,
+        "hat_velocity": 42
+      }
+    },
+    "soul_laid_back_16th": {
+      "grid": "16th",
+      "swing_ratio": 0.62,
+      "comp_active_steps": [0, 3, 6, 10, 13],
+      "comp_velocity": 60,
+      "comp_duration_ratio": 0.5,
+      "bass_pattern_steps": [0, 8],
+      "bass_velocity": 84,
+      "bass_duration_ratio": 0.9,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 80,
+        "snare_velocity": 64,
+        "hat_velocity": 44
+      }
+    },
+    "soul_straight_8th": {
+      "grid": "8th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 2, 4, 6],
+      "comp_velocity": 62,
+      "comp_duration_ratio": 0.52,
+      "bass_pattern_steps": [0, 4],
+      "bass_velocity": 86,
+      "bass_duration_ratio": 0.88,
+      "drum": {
+        "kick_steps": [0, 4],
+        "snare_steps": [2, 6],
+        "hat_steps": [1, 3, 5, 7],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 84,
+        "snare_velocity": 66,
+        "hat_velocity": 46
+      }
+    },
+    "funk_syncopated_16th": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 3, 6, 9, 12],
+      "comp_velocity": 78,
+      "comp_duration_ratio": 0.25,
+      "bass_pattern_steps": [0, 6, 10],
+      "bass_velocity": 92,
+      "bass_duration_ratio": 0.65,
+      "drum": {
+        "kick_steps": [0, 6, 10],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 4, 6, 8, 10, 12, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 95,
+        "snare_velocity": 88,
+        "hat_velocity": 62
+      }
+    },
+    "funk_straight_16th": {
+      "grid": "16th",
+      "swing_ratio": 0.5,
+      "comp_active_steps": [0, 4, 8, 12],
+      "comp_velocity": 76,
+      "comp_duration_ratio": 0.28,
+      "bass_pattern_steps": [0, 4, 8, 12],
+      "bass_velocity": 90,
+      "bass_duration_ratio": 0.6,
+      "drum": {
+        "kick_steps": [0, 4, 8, 12],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 92,
+        "snare_velocity": 85,
+        "hat_velocity": 60
+      }
+    },
+    "gospel_shuffle_8th": {
+      "grid": "8th",
+      "swing_ratio": 0.66,
+      "comp_active_steps": [0, 2, 4, 6],
+      "comp_velocity": 70,
+      "comp_duration_ratio": 0.55,
+      "bass_pattern_steps": [0, 2, 4, 6],
+      "bass_velocity": 86,
+      "bass_duration_ratio": 0.8,
+      "drum": {
+        "kick_steps": [0, 4],
+        "snare_steps": [2, 6],
+        "hat_steps": [1, 3, 5, 7],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 86,
+        "snare_velocity": 74,
+        "hat_velocity": 52
+      }
+    },
+    "gospel_half_time": {
+      "grid": "16th",
+      "swing_ratio": 0.58,
+      "comp_active_steps": [0, 8],
+      "comp_velocity": 68,
+      "comp_duration_ratio": 0.75,
+      "bass_pattern_steps": [0, 8],
+      "bass_velocity": 84,
+      "bass_duration_ratio": 0.92,
+      "drum": {
+        "kick_steps": [0, 8],
+        "snare_steps": [4, 12],
+        "hat_steps": [2, 6, 10, 14],
+        "kick_pitch": 36,
+        "snare_pitch": 38,
+        "hat_pitch": 42,
+        "kick_velocity": 84,
+        "snare_velocity": 70,
+        "hat_velocity": 48
+      }
     }
   },
   "voicing_styles": {
@@ -77,6 +430,110 @@
       "add_ninth": false,
       "max_voices": 4,
       "velocity": 64
+    },
+    "rootless_LH_voicing": {
+      "strategy": "drop2",
+      "base_midi": 52,
+      "drop_intervals": [3, 7, 10, 14],
+      "add_ninth": true,
+      "max_voices": 4,
+      "velocity": 68
+    },
+    "shell_voicing": {
+      "strategy": "drop2",
+      "base_midi": 48,
+      "drop_intervals": [0, 7, 10],
+      "add_ninth": false,
+      "max_voices": 3,
+      "velocity": 66
+    },
+    "open_voicing_wide_spread": {
+      "strategy": "spread",
+      "base_midi": 55,
+      "spread_semitones": [0, 12, 19, 24],
+      "add_ninth": true,
+      "max_voices": 5,
+      "velocity": 54
+    },
+    "block_chords": {
+      "strategy": "spread",
+      "base_midi": 58,
+      "spread_semitones": [0, 7, 12, 16],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 58
+    },
+    "bossa_guitar_voicing": {
+      "strategy": "drop2",
+      "base_midi": 52,
+      "drop_intervals": [0, 4, 7, 11],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 56
+    },
+    "open_triad_spread": {
+      "strategy": "spread",
+      "base_midi": 55,
+      "spread_semitones": [0, 7, 12],
+      "add_ninth": false,
+      "max_voices": 3,
+      "velocity": 62
+    },
+    "capo_style_tight": {
+      "strategy": "drop2",
+      "base_midi": 60,
+      "drop_intervals": [0, 4, 7, 12],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 64
+    },
+    "neo_soul_extensions": {
+      "strategy": "spread",
+      "base_midi": 58,
+      "spread_semitones": [0, 7, 14, 17],
+      "add_ninth": true,
+      "max_voices": 5,
+      "velocity": 60
+    },
+    "soul_compact_voicing": {
+      "strategy": "drop2",
+      "base_midi": 54,
+      "drop_intervals": [0, 7, 10, 14],
+      "add_ninth": true,
+      "max_voices": 4,
+      "velocity": 62
+    },
+    "funk_stabs_tight": {
+      "strategy": "drop2",
+      "base_midi": 56,
+      "drop_intervals": [0, 7, 10],
+      "add_ninth": false,
+      "max_voices": 3,
+      "velocity": 76
+    },
+    "funk_sparse_7ths": {
+      "strategy": "spread",
+      "base_midi": 54,
+      "spread_semitones": [0, 7, 10, 14],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 72
+    },
+    "gospel_rich_choir_spread": {
+      "strategy": "spread",
+      "base_midi": 56,
+      "spread_semitones": [0, 7, 12, 19, 24],
+      "add_ninth": true,
+      "max_voices": 5,
+      "velocity": 66
+    },
+    "gospel_hammond_blocks": {
+      "strategy": "spread",
+      "base_midi": 52,
+      "spread_semitones": [0, 7, 12, 16],
+      "add_ninth": false,
+      "max_voices": 4,
+      "velocity": 70
     }
   }
 }

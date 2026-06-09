@@ -54,13 +54,71 @@ def get_song_id(spec: dict[str, Any], preserved: dict[str, Any] | None = None) -
     raise ValueError("arrangement spec missing metadata.input_song_id")
 
 
-def bar_chord_overrides(transform: dict[str, Any]) -> dict[int, str]:
-    """Optional per-bar chord overrides from spec preview / progression."""
+def _progression_entries(block: dict[str, Any] | None, *keys: str) -> list[dict[str, Any]]:
+    if not block:
+        return []
+    for key in keys:
+        entries = block.get(key)
+        if entries:
+            return list(entries)
+    return []
+
+
+def bar_chord_overrides(
+    transform: dict[str, Any],
+    preserved: dict[str, Any] | None = None,
+) -> dict[int, str]:
+    """
+    Per-bar chord overrides applied on top of POP909 chord_midi.txt.
+
+    Precedence (later wins): preserved.original_chord_progression
+      → transformations.chord_progression_preview
+      → transformations.chord_progression
+    """
     overrides: dict[int, str] = {}
-    for key in ("chord_progression", "chord_progression_preview"):
-        entries = transform.get(key) or []
-        for item in entries:
-            bar = int(item.get("bar", 0))
-            if bar > 0:
-                overrides[bar] = item.get("chord", "N")
+    for item in _progression_entries(preserved, "original_chord_progression"):
+        bar = int(item.get("bar", 0))
+        if bar > 0:
+            overrides[bar] = item.get("chord", "N")
+    for item in _progression_entries(transform, "chord_progression_preview"):
+        bar = int(item.get("bar", 0))
+        if bar > 0:
+            overrides[bar] = item.get("chord", "N")
+    for item in _progression_entries(transform, "chord_progression"):
+        bar = int(item.get("bar", 0))
+        if bar > 0:
+            overrides[bar] = item.get("chord", "N")
     return overrides
+
+
+def summarize_active_spec(
+    spec: dict[str, Any],
+    variant: str = "primary",
+) -> dict[str, Any]:
+    """Human-readable snapshot of fields that actually drive MIDI generation."""
+    preserved = get_preserved(spec)
+    transform = get_transformations(spec, variant=variant)
+    overrides = bar_chord_overrides(transform, preserved)
+    return {
+        "variant": variant,
+        "spec_shape": (
+            "dual_output" if "primary_spec" in spec else "converged"
+        ),
+        "tempo_bpm": get_tempo_bpm(transform, preserved),
+        "rhythm_pattern": transform.get("rhythm_pattern"),
+        "voicing_style": transform.get("voicing_style"),
+        "texture_density": transform.get("texture_density"),
+        "instrumentation": transform.get("instrumentation"),
+        "chord_override_bars": len(overrides),
+        "chord_override_preview": dict(sorted(overrides.items())[:8]),
+        "ignored_fields": [
+            "natural_language_summary",
+            "metadata (except input_song_id)",
+            "instrumentation.ambient (vinyl_crackle not synthesized yet)",
+        ],
+        "wav_policy": "always trimmed to data/wav_renders/<song_id>.wav length (30s)",
+        "timing_policy": (
+            "source tempo from artifacts/pop909_sample.csv; "
+            "beat grid from beat_midi.txt; melody scaled around first downbeat"
+        ),
+    }

@@ -2,3 +2,14 @@
 .claude/
 data_multiagent_imp_v2/
 data_multiagent_imp_v2.zip
+
+# demo runtime
+demo/__pycache__/
+demo/sessions/*
+!demo/sessions/.gitkeep
+
+# generated audio (reproducible)
+outputs/**/*.wav
+outputs/**/*.mid
+outputs/demo_custom/
+outputs/demo_style_test/
