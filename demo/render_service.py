@@ -42,6 +42,51 @@ _VALID_VOICING_STYLES = {
 }
 
 
+_ROLE_DEFAULTS = {
+    "lead": "rhodes_electric_piano",
+    "bass": "electric_bass_finger",
+    "percussion": "soul_drums",
+    "ambient": None,
+}
+
+
+def _normalize_instrument(val: Any, role: str | None = None) -> str | None:
+    """Map any LLM instrument string to a valid registry name, or fall back to role default."""
+    if not isinstance(val, str) or not val:
+        return _ROLE_DEFAULTS.get(role or "", None)
+    if val in _VALID_INSTRUMENTS:
+        return val
+    # Normalize: lowercase, collapse whitespace to underscores, strip extra chars
+    slug = re.sub(r"[\s\-/]+", "_", val.lower().strip())
+    slug = re.sub(r"[^a-z0-9_]", "", slug)
+    if slug in _VALID_INSTRUMENTS:
+        return slug
+    # Substring: find valid name whose tokens are all contained in the slug
+    for v in sorted(_VALID_INSTRUMENTS):
+        tokens = v.split("_")
+        if all(t in slug for t in tokens):
+            return v
+    # Reverse: slug tokens present in a valid name
+    slug_tokens = [t for t in slug.split("_") if len(t) > 2]
+    for v in sorted(_VALID_INSTRUMENTS):
+        if slug_tokens and all(t in v for t in slug_tokens[:2]):
+            return v
+    return _ROLE_DEFAULTS.get(role or "", None)
+
+
+def _normalize_instrumentation_dict(inst: dict[str, Any]) -> dict[str, Any]:
+    """Normalize all instrument name values inside an instrumentation dict."""
+    out: dict[str, Any] = {}
+    for role in ("lead", "bass", "percussion", "ambient"):
+        raw = inst.get(role)
+        if raw is None:
+            continue
+        normalized = _normalize_instrument(raw, role)
+        if normalized:
+            out[role] = normalized
+    return out
+
+
 def _clean_chord(raw: str) -> str:
     return raw.split("(")[0].strip() or "N"
 
@@ -177,6 +222,9 @@ def _normalize_spec(spec: dict[str, Any], song_id: str | None = None) -> dict[st
     if not isinstance(t, dict):
         spec["transformations"] = _extract_transformations_from_schema(spec)
     _promote_drums(spec["transformations"])
+    inst = spec["transformations"].get("instrumentation")
+    if isinstance(inst, dict):
+        spec["transformations"]["instrumentation"] = _normalize_instrumentation_dict(inst)
 
     # 3. primary_spec.transformations
     if isinstance(spec.get("primary_spec"), dict):
@@ -186,6 +234,11 @@ def _normalize_spec(spec: dict[str, Any], song_id: str | None = None) -> dict[st
                 spec["primary_spec"]
             )
         _promote_drums(spec["primary_spec"]["transformations"])
+        inst = spec["primary_spec"]["transformations"].get("instrumentation")
+        if isinstance(inst, dict):
+            spec["primary_spec"]["transformations"]["instrumentation"] = (
+                _normalize_instrumentation_dict(inst)
+            )
 
     return spec
 

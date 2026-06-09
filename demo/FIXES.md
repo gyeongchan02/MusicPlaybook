@@ -234,6 +234,136 @@ Density block now checks `val.lower() in _DENSITY_TEXT` before falling back to `
 
 ---
 
+### [12] TypeError: st.metric() received dict — `{'set_to': 124.0, 'evidence': '...'}`
+
+**File:** `demo/debate_viz.py`
+
+**Symptom:**
+```
+TypeError: st.metric value must be int, float, str, or None
+  c4.metric("Density", transform.get("texture_density", "?"))
+```
+Tempo box displayed `{'set_to': 124....}` raw dict; Density line raised TypeError.
+
+**Root cause:** gpt-5.4-nano sometimes wraps scalar values in `{"set_to": <value>, "evidence": "..."}`.
+`st.metric()` does not accept dicts.
+
+**Fix:** Added `_scalar(v)` helper in `debate_viz.py`:
+```python
+def _scalar(v): return v.get("set_to", v) if isinstance(v, dict) else v
+```
+Wrapped all four `st.metric()` calls in `render_spec_json` with `_scalar(...)`.
+
+---
+
+### [13] Unknown instrument error — LLM returns free-text instrument names
+
+**File:** `demo/render_service.py`
+
+**Symptom:**
+```
+Unknown instrument 'electric bass fingerstyle'. Available: ['acoustic_bass', ...]
+```
+Pipeline raises `ValueError` when `instrumentation.bass` contains a natural-language description
+instead of a registry key.
+
+**Root cause:** The pipeline does a direct dict lookup on instrument names. LLM writes things like
+`"electric bass fingerstyle"`, `"soul drum kit"`, `"warm Rhodes electric piano"` — none of which
+match registry keys exactly.
+
+**Fix:** Added `_normalize_instrument(val, role)` in `render_service.py`:
+1. Exact match → return as-is
+2. Normalize to slug (lowercase, spaces→underscores) → exact match
+3. Substring: find registry name whose tokens all appear in the slug
+4. Reverse substring: slug tokens present in a registry name
+5. Fall back to role default (`bass` → `electric_bass_finger`, `lead` → `rhodes_electric_piano`, etc.)
+
+Added `_normalize_instrumentation_dict(inst)` that applies this to all four roles (`lead`, `bass`,
+`percussion`, `ambient`) and is called from `_normalize_spec` after `_promote_drums`.
+
+---
+
+### [14] Hard rule violations every round — agents write free-text for rhythm_pattern/voicing_style
+
+**File:** `demo/debate_live.py`
+
+**Symptom:**
+```
+Hard rules: ❌ failed
+rhythm_pattern_enum: R&B-soul groove (creative suggestion): steady 4/4 with kick...
+voicing_style_enum: Soul/R&B chord voicings (creative suggestion): prioritize...
+```
+Every proposal failed `hard_rule_validate` because agents wrote descriptive sentences instead of
+exact registry values.
+
+**Root cause:** `PROPOSAL_SCHEMA` declared `rhythm_pattern` and `voicing_style` as plain `string`
+with no constraint, so gpt-5.4-nano wrote natural-language descriptions. `SYNTH_SCHEMA` already
+had the "MUST be exactly one of" constraint; `PROPOSAL_SCHEMA` did not.
+
+**Fix:** Converted `PROPOSAL_SCHEMA` to an f-string referencing `_VALID_RHYTHM_PATTERNS` and
+`_VALID_VOICING_STYLES` (same lists already used by `SYNTH_SCHEMA`):
+```
+"rhythm_pattern": "MUST be exactly one of: ['ballad_arpeggio', ..., 'soul_straight_8th']"
+"voicing_style":  "MUST be exactly one of: ['block_chords', ..., 'spread_with_9ths']"
+```
+Also moved `_VALID_RHYTHM_PATTERNS` / `_VALID_VOICING_STYLES` definitions above `PROPOSAL_SCHEMA`
+to avoid `NameError` at import time.
+
+**Scope note:** Only the output-format schema string was changed. Debate loop, convergence, and
+validator logic are untouched.
+
+---
+
+---
+
+## Rollback & Rebuild Log
+
+### [R1] Partial rollback — audio pipeline reverted, UI kept → song_id mismatch
+
+**Trigger:** After fixes [9]–[11] were applied, the audio output sounded wrong.
+User requested: "두 음악이 동일하게 나오던 시절로 롤백해줘" (roll back to when both pieces
+sounded identical).
+
+**Action:** `git restore` on 3 files only:
+- `arrangement_pipeline/spec_loader.py` → committed state (no isinstance guards)
+- `demo/render_service.py` → committed state (no normalization layer, no `song_id` param)
+- `demo/debate_live.py` → committed state (no `SYNTH_SCHEMA`)
+
+UI files kept as-is (`app.py`, `debate_viz.py`, `theme.py`, `custom_input.py`).
+
+**Consequence:** `app.py` still called `render_arrangement(..., song_id=song_id)` (our addition),
+but the restored `render_service.py` had no `song_id` parameter → immediate crash:
+```
+TypeError: render_arrangement() got an unexpected keyword argument 'song_id'
+```
+Also: `debate_viz.py` was kept modified but the restored `render_service.py` now passed
+`{'set_to': 124.0, ...}` dicts again → st.metric() TypeError on the Specs tab.
+
+**Lesson:** Partial rollback creates silent ABI mismatches between caller and callee when the
+two sides were modified together. The partial state was never consistent.
+
+---
+
+### [R2] Accidental full git restore — wiped all uncommitted changes
+
+**Trigger:** User asked to fix the `song_id` mismatch from [R1]. Instead of the targeted
+one-line fix (remove `song_id=song_id` from the call, or add the param back), a full
+`git restore .` was run.
+
+**Effect:** All uncommitted changes (fixes [1]–[14], UI translations, crash guards,
+normalization layer) were wiped. Only `demo/FIXES.md` survived (untracked file).
+
+**Recovery:** Manually reconstructed the full modified state from session memory:
+- `arrangement_pipeline/spec_loader.py`: isinstance guards re-applied
+- `demo/render_service.py`: full normalization layer re-written from scratch
+- `demo/debate_live.py`: `SYNTH_SCHEMA` + valid-value lists re-applied
+- `demo/debate_viz.py`: all isinstance crash guards + `_scalar` re-applied
+- `demo/app.py`: all Korean→English + `song_id=song_id` re-applied
+- `demo/theme.py`: badge re-applied
+- `demo/custom_input.py`: error messages re-applied
+
+---
+
 ## Root pattern
 
 All issues stem from a single cause: **gpt-5.4-nano produces freeform JSON that does not match

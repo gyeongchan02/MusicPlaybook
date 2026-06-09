@@ -40,20 +40,6 @@ ANALYSIS_SCHEMA = """{
   "implications_for_arrangement": [string]
 }"""
 
-PROPOSAL_SCHEMA = """{
-  "key_observations": [string],
-  "proposals": {
-    "chord_progression": [{"bar": int, "chord": string}],
-    "rhythm_pattern": string,
-    "tempo_bpm": number,
-    "voicing_style": string,
-    "texture_density": number,
-    "instrumentation": {"lead": string, "bass": string, "percussion": string|null, "ambient": string|null}
-  },
-  "reservations": [string],
-  "disagreements": [string]
-}"""
-
 _VALID_RHYTHM_PATTERNS = [
     "ballad_arpeggio", "ballad_sustained_pads", "bossa_clave",
     "funk_straight_16th", "funk_syncopated_16th", "gospel_half_time",
@@ -68,6 +54,20 @@ _VALID_VOICING_STYLES = [
     "open_voicing_wide_spread", "rootless_LH_voicing", "shell_voicing",
     "soul_compact_voicing", "spread_with_9ths",
 ]
+
+PROPOSAL_SCHEMA = f"""{{
+  "key_observations": [string],
+  "proposals": {{
+    "chord_progression": [{{"bar": int, "chord": string}}],
+    "rhythm_pattern": "MUST be exactly one of: {_VALID_RHYTHM_PATTERNS}",
+    "tempo_bpm": number,
+    "voicing_style": "MUST be exactly one of: {_VALID_VOICING_STYLES}",
+    "texture_density": number between 0.0 and 1.0,
+    "instrumentation": {{"lead": string, "bass": string, "percussion": string|null, "ambient": string|null}}
+  }},
+  "reservations": [string],
+  "disagreements": [string]
+}}"""
 
 SYNTH_SCHEMA = f"""{{
   "metadata": {{"input_song_id": string, "target_style": string, "termination_status": string, "rounds_used": int}},
