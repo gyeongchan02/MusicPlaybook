@@ -22,12 +22,16 @@ def get_transformations(
     variant: 'primary' | 'alternative' | 'baseline' (uses top-level transformations)
     """
     if variant == "baseline" and "transformations" in spec:
-        return spec["transformations"]
+        t = spec["transformations"]
+        return t if isinstance(t, dict) else {}
     if variant == "alternative" and "alternative_spec" in spec:
-        return spec["alternative_spec"]["transformations"]
+        t = spec.get("alternative_spec", {}).get("transformations", {})
+        return t if isinstance(t, dict) else {}
     if "primary_spec" in spec:
-        return spec["primary_spec"]["transformations"]
-    return spec["transformations"]
+        t = spec.get("primary_spec", {}).get("transformations", {})
+        return t if isinstance(t, dict) else {}
+    t = spec.get("transformations", {})
+    return t if isinstance(t, dict) else {}
 
 
 def get_preserved(spec: dict[str, Any]) -> dict[str, Any]:

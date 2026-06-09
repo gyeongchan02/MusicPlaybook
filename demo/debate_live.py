@@ -54,12 +54,34 @@ PROPOSAL_SCHEMA = """{
   "disagreements": [string]
 }"""
 
-SYNTH_SCHEMA = """{
-  "metadata": {...},
-  "preserved": {...},
-  "transformations": {...},
+_VALID_RHYTHM_PATTERNS = [
+    "ballad_arpeggio", "ballad_sustained_pads", "bossa_clave",
+    "funk_straight_16th", "funk_syncopated_16th", "gospel_half_time",
+    "gospel_shuffle_8th", "jazz_straight_4th", "jazz_swing_8th",
+    "lofi_straight_8th", "lofi_swung_16th", "pop_arpeggio_16th",
+    "pop_strum_8th", "samba_lite", "soul_laid_back_16th", "soul_straight_8th",
+]
+_VALID_VOICING_STYLES = [
+    "block_chords", "bossa_guitar_voicing", "capo_style_tight", "drop2_voicing",
+    "funk_sparse_7ths", "funk_stabs_tight", "gospel_hammond_blocks",
+    "gospel_rich_choir_spread", "neo_soul_extensions", "open_triad_spread",
+    "open_voicing_wide_spread", "rootless_LH_voicing", "shell_voicing",
+    "soul_compact_voicing", "spread_with_9ths",
+]
+
+SYNTH_SCHEMA = f"""{{
+  "metadata": {{"input_song_id": string, "target_style": string, "termination_status": string, "rounds_used": int}},
+  "preserved": {{"key": string, "num_bars": int}},
+  "transformations": {{
+    "tempo_bpm": number,
+    "rhythm_pattern": "MUST be exactly one of: {_VALID_RHYTHM_PATTERNS}",
+    "voicing_style": "MUST be exactly one of: {_VALID_VOICING_STYLES}",
+    "texture_density": number between 0.0 and 1.0,
+    "instrumentation": {{"lead": string, "bass": string, "percussion": string, "ambient": string}},
+    "chord_progression": [{{"bar": int, "chord": string}}]
+  }},
   "natural_language_summary": string
-}"""
+}}"""
 
 CONV_THRESHOLDS = {
     "sim_inter_min": 0.92,
@@ -530,7 +552,8 @@ def synthesize_spec(
     }
     system = f"""Synthesizer: merge debate into one arrangement_spec JSON.
 {REASONING_CONSTRAINTS}
-Schema: metadata, preserved (key, num_bars), transformations, natural_language_summary."""
+Output EXACTLY this JSON schema — do NOT add extra nesting or rename fields:
+{SYNTH_SCHEMA}"""
     user = json.dumps({
         "debate_log": {
             "pre_analysis": debate_log["pre_analysis"],
@@ -558,7 +581,10 @@ def run_baseline_spec(
     num_bars: int,
     llm: _LLM,
 ) -> dict:
-    system = f"""Single-agent baseline. One arrangement_spec JSON. {REASONING_CONSTRAINTS}"""
+    system = f"""Single-agent baseline. One arrangement_spec JSON.
+{REASONING_CONSTRAINTS}
+Output EXACTLY this JSON schema — do NOT add extra nesting or rename fields:
+{SYNTH_SCHEMA}"""
     user = json.dumps({
         "query": user_query,
         "retrieval_a": retrieval_a,

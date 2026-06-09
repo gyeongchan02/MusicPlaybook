@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-# 서울대 상징 남색 계열
+# SNU navy color palette
 SNU_NAVY = "#0C4DA2"
 SNU_NAVY_DARK = "#083A7A"
 SNU_NAVY_DEEP = "#062952"
@@ -121,7 +121,7 @@ def snu_header(title: str, subtitle: str) -> None:
     st.markdown(
         f"""
         <div class="snu-header">
-            <h1>{title} <span class="snu-badge">SNU Demo</span></h1>
+            <h1>{title} <span class="snu-badge">P4DS Team 6</span></h1>
             <p>{subtitle}</p>
         </div>
         """,

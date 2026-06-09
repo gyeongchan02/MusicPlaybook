@@ -7,6 +7,11 @@ from typing import Any
 
 import streamlit as st
 
+def _scalar(v: Any) -> Any:
+    """Extract a scalar from {'set_to': 124.0, 'evidence': '...'} or pass through."""
+    return v.get("set_to", v) if isinstance(v, dict) else v
+
+
 AGENT_STYLES = {
     "tradition": {"label": "Tradition Guardian", "emoji": "🏛️", "color": "#083A7A"},
     "style": {"label": "Style Translator", "emoji": "🎧", "color": "#0C4DA2"},
@@ -19,6 +24,7 @@ def _proposal_summary(proposals: dict[str, Any]) -> dict[str, Any]:
     preview = [
         f"bar {item.get('bar')}: {item.get('chord')}"
         for item in chords[:6]
+        if isinstance(item, dict)
     ]
     return {
         "tempo_bpm": proposals.get("tempo_bpm"),
@@ -74,6 +80,8 @@ def render_pre_analysis(debate_log: dict[str, Any]) -> None:
         (col_s, "style", "style"),
     ):
         block = pre.get(key, {})
+        if not isinstance(block, dict):
+            block = {}
         meta = AGENT_STYLES[agent_key]
         with col:
             st.markdown(
@@ -84,8 +92,11 @@ def render_pre_analysis(debate_log: dict[str, Any]) -> None:
             if traits:
                 with st.expander("Musical traits", expanded=False):
                     for trait in traits:
-                        st.markdown(f"**{trait.get('trait', 'Trait')}**")
-                        st.caption(trait.get("evidence", ""))
+                        if isinstance(trait, dict):
+                            st.markdown(f"**{trait.get('trait', 'Trait')}**")
+                            st.caption(trait.get("evidence", ""))
+                        else:
+                            st.markdown(f"- {trait}")
             implications = block.get("implications_for_arrangement", [])
             if implications:
                 with st.expander("Arrangement implications", expanded=False):
@@ -121,10 +132,16 @@ def render_agent_proposal(
 ) -> None:
     meta = AGENT_STYLES[agent_key]
     st.markdown(f"#### {meta['emoji']} {meta['label']}")
+    if not isinstance(agent_data, dict):
+        st.caption(str(agent_data))
+        return
     if hard_rule is not None:
         st.caption(f"Hard rules: {_hard_rule_badge(hard_rule.get('passed', False))}")
         for violation in hard_rule.get("violations", []):
-            st.error(f"{violation.get('rule')}: {violation.get('detail')}")
+            if isinstance(violation, dict):
+                st.error(f"{violation.get('rule')}: {violation.get('detail')}")
+            else:
+                st.error(str(violation))
 
     observations = agent_data.get("key_observations", [])
     if observations:
@@ -149,22 +166,32 @@ def render_validator(validator: dict[str, Any]) -> None:
     meta = AGENT_STYLES["validator"]
     st.markdown(f"#### {meta['emoji']} {meta['label']}")
 
+    if not isinstance(validator, dict):
+        st.caption(str(validator))
+        return
+
     ready = validator.get("ready_for_synthesis")
     if ready is not None:
         st.caption("Ready for synthesis: " + ("✅ yes" if ready else "⏳ not yet"))
 
     verdicts = validator.get("verdict_per_aspect", [])
-    for verdict in verdicts:
-        aspect = verdict.get("aspect", "aspect")
-        agreement = verdict.get("agreement", "")
-        recommendation = verdict.get("recommendation", "")
-        with st.expander(
-            f"{aspect} — {_agreement_badge(agreement)} → **{recommendation}**",
-            expanded=False,
-        ):
-            st.markdown(f"**Tradition:** {verdict.get('tradition_position', '')}")
-            st.markdown(f"**Style:** {verdict.get('style_position', '')}")
-            st.markdown(f"**Reasoning:** {verdict.get('reasoning', '')}")
+    if isinstance(verdicts, str):
+        st.markdown(verdicts)
+    else:
+        for verdict in verdicts:
+            if not isinstance(verdict, dict):
+                st.markdown(f"- {verdict}")
+                continue
+            aspect = verdict.get("aspect", "aspect")
+            agreement = verdict.get("agreement", "")
+            recommendation = verdict.get("recommendation", "")
+            with st.expander(
+                f"{aspect} — {_agreement_badge(agreement)} → **{recommendation}**",
+                expanded=False,
+            ):
+                st.markdown(f"**Tradition:** {verdict.get('tradition_position', '')}")
+                st.markdown(f"**Style:** {verdict.get('style_position', '')}")
+                st.markdown(f"**Reasoning:** {verdict.get('reasoning', '')}")
 
     concerns = validator.get("global_concerns", [])
     if concerns:
@@ -221,11 +248,11 @@ def render_spec_json(spec: dict[str, Any], title: str) -> None:
     transform = spec.get("transformations")
     if transform is None and "primary_spec" in spec:
         transform = spec["primary_spec"].get("transformations")
-    if transform:
+    if transform and isinstance(transform, dict):
         c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Tempo", f"{transform.get('tempo_bpm', '?')} BPM")
-        c2.metric("Rhythm", transform.get("rhythm_pattern", "?"))
-        c3.metric("Voicing", transform.get("voicing_style", "?"))
-        c4.metric("Density", transform.get("texture_density", "?"))
+        c1.metric("Tempo", f"{_scalar(transform.get('tempo_bpm', '?'))} BPM")
+        c2.metric("Rhythm", _scalar(transform.get("rhythm_pattern", "?")))
+        c3.metric("Voicing", _scalar(transform.get("voicing_style", "?")))
+        c4.metric("Density", _scalar(transform.get("texture_density", "?")))
     with st.expander("Full JSON", expanded=False):
         st.code(json.dumps(spec, ensure_ascii=False, indent=2), language="json")

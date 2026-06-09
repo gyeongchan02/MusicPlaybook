@@ -78,7 +78,7 @@ def inspect_midi(midi_path: Path, melody_track_index: int | None = None) -> Midi
         if not inst.is_drum and inst.notes
     ]
     if not non_drum:
-        raise ValueError("MIDI에 멜로디 노트가 없습니다. (드럼만 있거나 비어 있음)")
+        raise ValueError("No melody notes found in MIDI (drums only or empty).")
 
     if melody_track_index is None:
         tracks = resolve_tracks(pm)
@@ -88,11 +88,11 @@ def inspect_midi(midi_path: Path, melody_track_index: int | None = None) -> Midi
         else:
             melody_track_index = non_drum[0]
     elif melody_track_index >= len(pm.instruments):
-        raise ValueError(f"트랙 인덱스 {melody_track_index}가 범위를 벗어났습니다.")
+        raise ValueError(f"Track index {melody_track_index} is out of range.")
 
     melody = pm.instruments[melody_track_index]
     if melody.is_drum or not melody.notes:
-        raise ValueError("선택한 트랙에 멜로디 노트가 없습니다.")
+        raise ValueError("Selected track has no melody notes.")
 
     tempo = float(pm.estimate_tempo() or 120.0)
     if tempo <= 0 or tempo > 300:

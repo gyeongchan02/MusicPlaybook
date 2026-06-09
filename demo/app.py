@@ -119,7 +119,7 @@ def style_selector(styles: list[str]) -> str:
         "Target style",
         styles,
         format_func=lambda s: style_labels[s],
-        help="🎵 = WAV 렌더 가능",
+        help="🎵 = WAV render available",
     )
 
     profile = load_style_profiles().get(target_style, {})
@@ -129,9 +129,9 @@ def style_selector(styles: list[str]) -> str:
 
     can_render, missing = style_render_status(target_style)
     if can_render:
-        st.success("WAV 렌더 가능")
+        st.success("WAV render available")
     else:
-        st.warning(f"렌더 미지원: {', '.join(missing[:2])}")
+        st.warning(f"Render not supported: {', '.join(missing[:2])}")
 
     return target_style
 
@@ -163,10 +163,10 @@ def sidebar_pop909() -> tuple[str, str]:
     st.subheader("Multi-agent debate")
 
     prereq = debate_prerequisites()
-    max_rounds = st.slider("Debate rounds", 1, 3, 2, help="라운드마다 LLM 호출 (~1–3분)")
+    max_rounds = st.slider("Debate rounds", 1, 3, 2, help="LLM call per round (~1–3 min)")
 
     if prereq["ready"]:
-        st.caption(f"Live debate 가능 · model `{prereq['model']}`")
+        st.caption(f"Live debate ready · model `{prereq['model']}`")
         if st.button("Run live debate", type="primary", use_container_width=True):
             status = st.status("Running multi-agent debate…", expanded=True)
             log_box = status.empty()
@@ -197,10 +197,10 @@ def sidebar_pop909() -> tuple[str, str]:
             missing.append("OPENAI_API_KEY")
         if not prereq["pop909_csv"]:
             missing.append("artifacts/pop909_sample.csv")
-        st.warning(f"Live debate 불가: {', '.join(missing)}")
-        st.caption("아래에서 캐시 로드 또는 JSON 업로드를 사용하세요.")
+        st.warning(f"Live debate unavailable: {', '.join(missing)}")
+        st.caption("Load a cached run or upload JSON below.")
 
-    st.markdown("**또는** 기존 결과 불러오기")
+    st.markdown("**Or** load existing results")
     runs = find_cached_runs(song_id=song_id, target_style=target_style)
     if runs:
         run_labels = {r.label: r.run_dir for r in runs}
@@ -209,12 +209,12 @@ def sidebar_pop909() -> tuple[str, str]:
             load_run(run_labels[picked])
             st.success("Loaded")
     else:
-        st.caption("outputs/에 캐시된 토론 없음")
+        st.caption("No cached runs in outputs/")
 
     uploaded = st.file_uploader(
         "Upload debate_log.json",
         type=["json"],
-        help="토론만 업로드 시 spec은 별도 업로드 필요",
+        help="If uploading debate only, upload spec separately",
     )
     if uploaded is not None:
         st.session_state.debate_log = json.loads(uploaded.getvalue().decode("utf-8"))
@@ -235,13 +235,13 @@ def sidebar_custom() -> str:
     wav_up = st.file_uploader(
         "Reference WAV (optional)",
         type=["wav", "mp3"],
-        help="없으면 업로드 MIDI로 30초 reference clip을 자동 생성합니다.",
+        help="If omitted, a 30s reference clip is auto-generated from the uploaded MIDI.",
         key="custom_wav",
     )
     chord_up = st.file_uploader(
         "chord_midi.txt (optional)",
         type=["txt"],
-        help="POP909 형식: start end chord (예: 0.0 2.0 G:maj). 없으면 기본 코드로 채웁니다.",
+        help="POP909 format: start end chord (e.g. 0.0 2.0 G:maj). Defaults used if omitted.",
         key="custom_chord",
     )
 
@@ -309,7 +309,7 @@ def sidebar_custom() -> str:
     default_chord = st.text_input(
         "Default chord (no chord file)",
         value="N",
-        help="코드 파일 없을 때 모든 마디에 적용 (예: G:sus2, C:maj7)",
+        help="Applied to all bars when no chord file is provided (e.g. G:sus2, C:maj7)",
     )
 
     tempo_lo, tempo_hi = profile.get("tempo_range_bpm", [80, 100])
@@ -332,7 +332,7 @@ def sidebar_custom() -> str:
 
     if st.button("Prepare custom input", type="primary", use_container_width=True):
         if midi_up is None:
-            st.error("MIDI 파일을 업로드해 주세요.")
+            st.error("Please upload a MIDI file.")
         else:
             try:
                 assets = prepare_custom_assets(
@@ -366,7 +366,7 @@ def sidebar_custom() -> str:
                 st.session_state.run_dir = None
                 st.success(f"Ready: `{assets.work_dir.name}`")
             except Exception as exc:
-                st.error(f"준비 실패: {exc}")
+                st.error(f"Preparation failed: {exc}")
 
     return target_style
 
@@ -377,8 +377,8 @@ def section_custom_audio(target_style: str) -> None:
 
     if assets is None or spec is None:
         st.info(
-            "MIDI를 업로드하고 **Prepare custom input**을 누르면 "
-            "자동으로 arrangement spec이 생성됩니다."
+            "Upload a MIDI and click **Prepare custom input** to "
+            "auto-generate an arrangement spec."
         )
         return
 
@@ -400,7 +400,7 @@ def section_custom_audio(target_style: str) -> None:
 
     can_render, missing = style_render_status(target_style)
     if not can_render:
-        st.warning(f"렌더 미지원: {', '.join(missing)}")
+        st.warning(f"Render not supported: {', '.join(missing)}")
         return
 
     out_dir = assets.work_dir / "arranged"
@@ -463,7 +463,7 @@ def section_pop909_audio(song_id: str, target_style: str) -> None:
     baseline_spec = st.session_state.baseline_spec
 
     if debate_spec is None and baseline_spec is None:
-        st.info("캐시된 토론을 로드하거나 spec JSON을 업로드하세요.")
+        st.info("Load a cached debate or upload spec JSON.")
         col_u1, col_u2 = st.columns(2)
         with col_u1:
             up = st.file_uploader("arrangement_spec.json", type=["json"], key="up_debate")
@@ -476,10 +476,10 @@ def section_pop909_audio(song_id: str, target_style: str) -> None:
 
     can_render, missing = style_render_status(target_style)
     if not can_render:
-        st.warning(f"렌더 미지원: {', '.join(missing)}")
+        st.warning(f"Render not supported: {', '.join(missing)}")
         return
     if not ref_wav or not pop909_midi_path(song_id):
-        st.error("MIDI 또는 reference WAV가 없습니다.")
+        st.error("MIDI or reference WAV not found.")
         return
 
     for title, spec, variant_key in (
@@ -503,7 +503,7 @@ def section_pop909_audio(song_id: str, target_style: str) -> None:
                     ) as tmp:
                         json.dump(spec, tmp, ensure_ascii=False, indent=2)
                         p = Path(tmp.name)
-                    render_arrangement(p, out_dir, reference_wav=ref_wav)
+                    render_arrangement(p, out_dir, reference_wav=ref_wav, song_id=song_id)
                     p.unlink(missing_ok=True)
                     st.rerun()
                 except Exception as exc:
@@ -517,7 +517,7 @@ def main() -> None:
 
     snu_header(
         "MusicPlaybook Arrangement Demo",
-        "POP909 또는 직접 업로드 MIDI → Multi-agent debate → arranged.wav",
+        "POP909 or custom MIDI → Multi-agent debate → arranged.wav",
     )
 
     input_mode = st.sidebar.radio(
@@ -539,7 +539,7 @@ def main() -> None:
         with tab_arrange:
             st.markdown(
                 "### Custom upload\n"
-                "Multi-agent debate 없이 **스타일 프로필 기반 자동 spec**으로 바로 편곡합니다."
+                "Arrange directly with a **style-profile auto spec** — no multi-agent debate."
             )
             section_custom_audio(target_style)
         with tab_specs:
@@ -552,7 +552,7 @@ def main() -> None:
                     mime="application/json",
                 )
             else:
-                st.info("Prepare custom input를 먼저 실행하세요.")
+                st.info("Run Prepare custom input first.")
     else:
         tab_debate, tab_specs, tab_audio = st.tabs(["Debate", "Specs", "Audio"])
         with tab_debate:
@@ -560,8 +560,8 @@ def main() -> None:
                 render_debate_timeline(st.session_state.debate_log)
             else:
                 st.info(
-                    "사이드바 **Run live debate** (OPENAI_API_KEY) 또는 "
-                    "캐시 로드 / debate_log.json 업로드"
+                    "Use **Run live debate** in the sidebar (OPENAI_API_KEY required), "
+                    "or load a cached run / upload debate_log.json"
                 )
                 demo_runs = find_cached_runs(song_id="POP909_026", target_style="lo-fi chill")
                 if demo_runs and st.button("Quick load POP909_026 demo"):
