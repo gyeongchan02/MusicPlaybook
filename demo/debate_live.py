@@ -22,7 +22,7 @@ import numpy as np
 from demo.paths import REPO_ROOT, load_style_profiles
 
 SESSIONS_DIR = Path(__file__).resolve().parent / "sessions"
-DEFAULT_MODEL = os.environ.get("DEBATE_MODEL", "gpt-4o-mini")
+DEFAULT_MODEL = os.environ.get("DEBATE_MODEL", "gpt-5.4-nano")
 MAX_ROUNDS_DEFAULT = 3
 COST_BUDGET_USD = float(os.environ.get("DEBATE_COST_BUDGET", "2.0"))
 
