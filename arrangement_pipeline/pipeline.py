@@ -9,12 +9,17 @@ import pretty_midi
 
 from .accompaniment import build_full_chord_timeline, generate_accompaniment
 from .pop909 import (
+    build_preserved_melody,
     default_paths,
     load_pop909_midi,
     parse_chord_file,
     resolve_tracks,
 )
+from .melody_grid import quantize_notes_to_beat_grid
+from .melody_treatment import apply_melody_treatment
+from .mix_balance import apply_listenability_mix
 from .render import render_midi_to_wav
+from .style_render import build_render_plan
 from .spec_loader import (
     bar_chord_overrides,
     get_preserved,
@@ -24,6 +29,32 @@ from .spec_loader import (
     load_spec,
 )
 from .timing import BeatGrid, lookup_source_tempo, parse_beat_file
+
+MAX_ARRANGEMENT_BARS = 65
+PREVIEW_BAR_THRESHOLD = 16
+
+
+def resolve_num_bars(
+    preserved: dict,
+    beat_grid: BeatGrid,
+    max_bars: int = MAX_ARRANGEMENT_BARS,
+) -> int:
+    """
+    Use full beat-grid length when debate spec only captured a short excerpt.
+
+    Multi-agent specs often set num_bars to ~7–10 for the opening chord preview
+    while POP909 songs span many more bars.
+    """
+    beat_bars = min(beat_grid.num_bars, max_bars)
+    spec_bars = preserved.get("num_bars")
+    if spec_bars is None:
+        return beat_bars
+    spec_bars = int(spec_bars)
+    if spec_bars >= beat_bars:
+        return spec_bars
+    if spec_bars <= PREVIEW_BAR_THRESHOLD and beat_bars > spec_bars * 2:
+        return beat_bars
+    return spec_bars
 
 
 @dataclass
@@ -63,7 +94,7 @@ class ArrangementPipeline:
         preserved = get_preserved(spec)
         transform = get_transformations(spec, variant=variant)
         song_id = get_song_id(spec, preserved)
-        tempo_bpm = get_tempo_bpm(transform, preserved)
+        spec_tempo_bpm = get_tempo_bpm(transform, preserved)
 
         if source_midi is None or chord_annotation is None:
             default_midi, default_chords, default_beats = default_paths(
@@ -93,25 +124,35 @@ class ArrangementPipeline:
         if melody_src is None or not melody_src.notes:
             raise ValueError(f"No MELODY track in {source_midi}")
 
-        num_bars = int(
-            preserved.get("num_bars") or min(beat_grid.num_bars, 65)
+        num_bars = resolve_num_bars(preserved, beat_grid)
+        plan = build_render_plan(
+            transform,
+            spec_tempo_bpm,
+            source_tempo_bpm,
+            self.style_definitions_path,
         )
+        tempo_bpm = plan.tempo_bpm
+        mel = plan.melody
 
         out_pm = pretty_midi.PrettyMIDI(initial_tempo=tempo_bpm)
-        melody = pretty_midi.Instrument(
-            program=melody_src.program,
-            name="MELODY",
-            is_drum=melody_src.is_drum,
+        melody = build_preserved_melody(
+            tracks,
+            beat_grid,
+            tempo_bpm,
+            lead_program_name=mel.program_name,
+            velocity_cap=mel.velocity_cap,
+            velocity_floor=mel.velocity_floor,
         )
-        for note in melody_src.notes:
-            melody.notes.append(
-                pretty_midi.Note(
-                    velocity=min(110, note.velocity),
-                    pitch=note.pitch,
-                    start=beat_grid.map_time(note.start, tempo_bpm),
-                    end=beat_grid.map_time(note.end, tempo_bpm),
-                )
-            )
+        quantize_notes_to_beat_grid(
+            melody.notes,
+            beat_grid,
+            tempo_bpm,
+            num_bars,
+            n_steps=mel.quantize_steps,
+            swing_ratio=mel.swing_ratio,
+            strength=mel.quantize_strength,
+        )
+        apply_melody_treatment(melody.notes, mel, tempo_bpm)
         out_pm.instruments.append(melody)
 
         ann = parse_chord_file(chord_annotation)
@@ -123,25 +164,24 @@ class ArrangementPipeline:
             overrides,
             beat_grid=beat_grid,
         )
-
-        rhythm_pattern = transform.get("rhythm_pattern", "lofi_swung_16th")
-        voicing_style = transform.get("voicing_style", "spread_with_9ths")
-        texture_density = float(transform.get("texture_density", 0.4))
-        instrumentation = transform.get("instrumentation", {})
-
+        melody_windows = [(n.start, n.end) for n in melody.notes]
         comp_instruments = generate_accompaniment(
             segments=timeline,
             tempo_bpm=tempo_bpm,
             num_bars=num_bars,
-            rhythm_pattern=rhythm_pattern,
-            voicing_style=voicing_style,
-            texture_density=texture_density,
-            instrumentation=instrumentation,
+            rhythm_pattern=plan.rhythm_pattern,
+            voicing_style=plan.voicing_style,
+            texture_density=plan.texture_density,
+            instrumentation=plan.instrumentation,
             beat_grid=beat_grid,
             style_definitions_path=self.style_definitions_path,
-            include_drums=include_drums,
+            include_drums=include_drums and plan.include_drums,
+            include_pad=plan.include_pad,
+            melody_windows=melody_windows,
         )
         out_pm.instruments.extend(comp_instruments)
+
+        apply_listenability_mix(out_pm, plan.style_family)
 
         midi_out = out_dir / "arranged.mid"
         out_pm.write(str(midi_out))

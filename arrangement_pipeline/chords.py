@@ -107,7 +107,7 @@ def parse_chord_symbol(symbol: str, octave: int = 4) -> ParsedChord | None:
                 root_pc = _root_pc(names[0]) or 0
                 base = octave * 12 + 12
                 for name in names:
-                    pc = _root_pc.get(name)
+                    pc = _ROOT_PC.get(name)
                     if pc is None:
                         continue
                     midi = base + pc
@@ -136,7 +136,7 @@ def parse_chord_symbol(symbol: str, octave: int = 4) -> ParsedChord | None:
         m = re.match(r"^([A-G][#b]?)", symbol)
         if not m:
             return None
-        root_pc = _root_pc.get(m.group(1), 0)
+        root_pc = _ROOT_PC.get(m.group(1), 0)
         pitches = [octave * 12 + 12 + root_pc, octave * 12 + 16 + root_pc, octave * 12 + 19 + root_pc]
 
     unique = tuple(sorted(set(pitches)))

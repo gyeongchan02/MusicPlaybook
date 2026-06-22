@@ -1,0 +1,417 @@
+{
+  "user_query": {
+    "input_song_idx": 5,
+    "target_style": "cinematic ballad"
+  },
+  "retrieval_a_summary": {
+    "top_similar": [
+      "POP909_221",
+      "POP909_042",
+      "POP909_199"
+    ]
+  },
+  "retrieval_b_summary": {
+    "references": [
+      "POP909_187",
+      "POP909_332",
+      "POP909_198"
+    ]
+  },
+  "pre_analysis": {
+    "tradition": {
+      "summary": "The input song (idx 5) aligns most strongly with minor-key, mid-to-slow tempo ballad-like material, with emphasis on harmonic content and rhythmic definition. Comparable pieces suggest a relatively dense note environment and a production balance that foregrounds chordal information (and, in some cases, percussion/clap elements).",
+      "musical_traits": [
+        {
+          "trait": "Minor-mode tonality as a core identity",
+          "evidence": "Comparable pieces include POP909_221 in F minor and POP909_042 in Bb minor (both explicitly labeled minor)."
+        },
+        {
+          "trait": "Tempo range consistent with reflective, song-form pacing",
+          "evidence": "Comparable tempos cluster around ~110 (POP909_221) and ~73 (POP909_042), with another close reference at ~58 (POP909_199)."
+        },
+        {
+          "trait": "High note density / relatively busy melodic texture",
+          "evidence": "Comparable note_density values are all high: 16.05 (POP909_221), 17.55 (POP909_042), 17.29 (POP909_199)."
+        },
+        {
+          "trait": "Chord channel is a prominent contributor",
+          "evidence": "Channel scores show strong chord emphasis: 0.893 (POP909_221) and 0.691 (POP909_042), and 0.798 (POP909_199)."
+        },
+        {
+          "trait": "Rhythm channel is often strongly represented (especially in one close match)",
+          "evidence": "Rhythm channel scores include 0.981 (POP909_042) and 0.968 (POP909_199), with 0.665 (POP909_221) being comparatively lower."
+        },
+        {
+          "trait": "Percussive/clap-like elements may be part of the texture",
+          "evidence": "Clap channel scores are high in two references: 0.969 (POP909_221) and 0.985 (POP909_042), suggesting a potential identity feature to preserve."
+        }
+      ],
+      "implications_for_arrangement": [
+        "Preserve the minor-mode harmonic character (or closely related minor inflections) to maintain the song’s tonal identity.",
+        "Keep the arrangement’s pacing within the ~58–110 BPM neighborhood indicated by the closest matches, rather than shifting to a markedly different tempo feel.",
+        "Maintain relatively high melodic/note density so the texture remains consistently “full,” avoiding sparse re-orchestration.",
+        "Ensure chordal content remains foregrounded in the mix/arrangement, and consider retaining rhythmic definition and any clap/percussive accents if present in the original."
+      ]
+    },
+    "style": {
+      "summary": "The cinematic ballad references point to a piano-forward, emotionally driven sound world with orchestral string support. Harmony tends to favor extended/colored chords (maj7/min7/sus/add9) and often moves through relatively stable, singable progressions rather than rapid harmonic change.",
+      "musical_traits": [
+        {
+          "trait": "Piano-led cinematic emotional framing with orchestral strings",
+          "evidence": "clap_text_prompt: \"cinematic piano ballad, orchestral strings, emotional\"; instrumentation_options lead: \"concert_grand_piano\" and ambient: \"string_pad_lush\""
+        },
+        {
+          "trait": "Use of extended chord colors (maj7, min7) and suspended/additive harmonies",
+          "evidence": "preferred_chord_extensions: [\"maj7\", \"sus2\", \"add9\", \"min7\"]; reference chords include F#:min7/b7, A:maj6, B:min7, C#:min7, F#:sus2, F:maj6, C:sus2, Bb:sus2, G:sus2, C:7/5"
+        },
+        {
+          "trait": "Ballad-appropriate harmonic rhythm: progressions that linger on diatonic/functional centers",
+          "evidence": "chord_progression_by_bar shows chord changes by bar with repeated/held sonorities (e.g., POP909_187 bars 9-10 both \"A:maj\"; POP909_198 bars 6-8 all \"D:min\"; POP909_332 has repeated \"C#:maj\" across multiple bars)"
+        },
+        {
+          "trait": "Moderate tempo range with generally lower-to-mid ballad pacing",
+          "evidence": "mean_tempo_of_refs: 114.333... bpm; tempo_range_bpm: [60, 80] (as provided); individual reference tempi: 120.0, 94.0001, 129.0004 bpm"
+        },
+        {
+          "trait": "Moderate-to-higher note density consistent with expressive, lyrical voicing",
+          "evidence": "mean_note_density_of_refs: 9.4958; individual note_density values: 9.2437, 7.7846, 11.4590"
+        },
+        {
+          "trait": "Texture/voicing approaches: open/wide voicings or block chords; ballad arpeggio/sustained pad options",
+          "evidence": "rhythm_pattern_options: [\"ballad_arpeggio\", \"ballad_sustained_pads\"]; voicing_style_options: [\"open_voicing_wide_spread\", \"block_chords\"]; ambient option: \"string_pad_lush\""
+        }
+      ],
+      "implications_for_arrangement": [
+        "Prioritize a concert grand piano lead and support it with lush string pad/ensemble textures to match the stated cinematic ballad prompt.",
+        "Lean into extended harmony (maj7/min7) and suspended/additive sonorities (sus2, add9) to keep the harmonic color consistent with the references.",
+        "Use slower harmonic movement (often changing per bar and allowing repeats/holds) so the progression feels singable and emotionally sustained.",
+        "Choose either ballad arpeggiation or sustained pad-like harmonic support, and consider open/wide voicings (or block chords) to achieve the intended cinematic sonority."
+      ]
+    }
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable evidence for the input song points to a minor-mode identity as a core trait (matches in F minor and Bb minor).",
+          "Tempo for the closest references clusters in a ballad-appropriate range (~58–110 BPM), so large tempo shifts would risk changing the song’s feel.",
+          "The input appears to have relatively high note density in similar pieces (note_density ~16–18), implying a fuller melodic texture worth preserving.",
+          "Chordal information is strongly represented in the comparable material (channel score for chord is high in the top matches), so harmonic presence should remain prominent.",
+          "Rhythmic definition is also strong in some close references (rhythm channel scores near ~0.97), suggesting rhythm should not be overly simplified."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "TBD"
+            }
+          ],
+          "rhythm_pattern": "TBD",
+          "tempo_bpm": 88,
+          "voicing_style": "TBD",
+          "texture_density": 0.75,
+          "instrumentation": {
+            "lead": "TBD",
+            "bass": "TBD",
+            "percussion": null,
+            "ambient": null
+          }
+        },
+        "reservations": [
+          "No full bar-by-bar chord progression for the input song was provided in the retrieval evidence; I cannot safely output a complete chord_progression_by_bar map without it.",
+          "No explicit input tempo, bar count, or rhythm/voicing/instrumentation details were provided; placeholders are required until the input-song structural evidence is available.",
+          "I defer to the Style Translator for cinematic-ballad-specific rhythm/voicing/instrumentation idioms.",
+          "I defer to the Music Theory Validator for any harmonic re-voicing or correctness checks."
+        ],
+        "disagreements": []
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target style evidence emphasizes a piano-led cinematic ballad with orchestral strings and emotional delivery (creative suggestion: mirror this by making the piano the primary voice and strings the ambient bed).",
+          "Preferred harmonic colors in the target style include maj7, min7, sus2, and add9; reference chords explicitly use min7 and sus2/additive tones (evidence: preferred_chord_extensions + reference progressions).",
+          "Rhythm/texture guidance for the target style centers on ballad pacing using either arpeggiated piano figures or sustained pad-like support (evidence: rhythm_pattern_options; texture_density_range).",
+          "Voicing guidance favors open/wide spread voicings or block chords to get a cinematic sonority (evidence: voicing_style_options)."
+        ],
+        "proposals": {
+          "chord_progression": [],
+          "rhythm_pattern": "ballad_arpeggio",
+          "tempo_bpm": 114,
+          "voicing_style": "open_voicing_wide_spread",
+          "texture_density": 0.62,
+          "instrumentation": {
+            "lead": "concert_grand_piano",
+            "bass": "orchestral_double_bass",
+            "percussion": null,
+            "ambient": "string_pad_lush"
+          }
+        },
+        "reservations": [
+          "I cannot output the full bar-by-bar chord progression for the input song because the input song’s chord_progression_by_bar (num_bars) was not provided in the prompt to me.",
+          "I’m deferring to the Tradition Guardian/Music Theory Validator for any decisions that require the actual input song harmony layout (e.g., mapping or preserving chord identities)."
+        ],
+        "disagreements": []
+      },
+      "hard_rule_tradition": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 88 not within ±20% of input 69.00009660013524"
+          },
+          {
+            "rule": "rhythm_pattern_enum",
+            "detail": "'TBD' not in ['ballad_arpeggio', 'ballad_sustained_pads']"
+          },
+          {
+            "rule": "voicing_style_enum",
+            "detail": "'TBD' not in ['open_voicing_wide_spread', 'block_chords']"
+          }
+        ],
+        "warnings": []
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 114 not within ±20% of input 69.00009660013524"
+          }
+        ],
+        "warnings": [
+          {
+            "rule": "melody_clash",
+            "detail": "no chord progression to check"
+          }
+        ]
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "tempo_bpm",
+            "tradition_position": "Proposes 88 BPM, citing ballad-appropriate reference clustering and avoiding large tempo shifts.",
+            "style_position": "Proposes 114 BPM, citing cinematic-ballad pacing.",
+            "agreement": "disagree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals conflict with the hard-rule tempo check: input tempo is ~69.0 BPM, and neither 88 nor 114 falls within ±20%. Since I must not invent a new tempo, the only defensible guidance is to align closer to the input tempo to preserve feel (creative suggestion: choose a value within the allowed ±20% window around 69)."
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "Leaves rhythm_pattern as 'TBD', deferring to Style Translator for cinematic-ballad idioms.",
+            "style_position": "Uses rhythm_pattern = 'ballad_arpeggio'.",
+            "agreement": "partial",
+            "recommendation": "style",
+            "reasoning": "Style Translator’s 'ballad_arpeggio' is an explicit, stylistically coherent choice for a cinematic ballad and matches their stated evidence about ballad pacing via arpeggiated piano figures. Tradition provides no concrete rhythm content (TBD), so there’s nothing to prefer there. Note: the hard-rule checker flagged Tradition’s 'TBD' as invalid enum, but it did not flag Style’s value."
+          },
+          {
+            "aspect": "voicing_style",
+            "tradition_position": "Leaves voicing_style as 'TBD'.",
+            "style_position": "Uses voicing_style = 'open_voicing_wide_spread'.",
+            "agreement": "partial",
+            "recommendation": "style",
+            "reasoning": "Style Translator provides a concrete voicing approach ('open/wide spread') consistent with their cinematic sonority goal. Tradition again provides no actionable voicing plan ('TBD'). The hard-rule checker flagged Tradition’s 'TBD' as invalid, while Style’s voicing enum was not flagged."
+          },
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Chord progression is incomplete: only bar 1 is 'TBD'; also notes no full bar-by-bar map was provided in retrieval.",
+            "style_position": "Chord progression is empty (no chord_progression entries), deferring to others for actual harmony layout.",
+            "agreement": "disagree",
+            "recommendation": "compromise",
+            "reasoning": "Neither proposal supplies the required full bar-by-bar chord_progression_by_bar for the input song, so I cannot assess harmonic motion smoothness, tension, or melody-harmony fit. Tradition at least acknowledges the missing map; Style provides no harmonic content. Creative suggestion: the synthesis step must use the actual input song chord progression map to evaluate and preserve harmonic identity, then apply only voicing/extension color consistent with the style."
+          },
+          {
+            "aspect": "texture_density",
+            "tradition_position": "Sets texture_density = 0.75, arguing the input has relatively high note density worth preserving.",
+            "style_position": "Sets texture_density = 0.62, aiming for a more spacious cinematic bed.",
+            "agreement": "partial",
+            "recommendation": "compromise",
+            "reasoning": "Tradition’s higher density is grounded in their observation of note density (~16–18) and preserving melodic fullness. Style’s lower density aligns with their cinematic ambient-bed concept. Since both are plausible and neither is hard-ruled here, a middle value is the safest soft-rule choice to balance emotional spaciousness with the input’s apparent melodic density (creative suggestion: move toward ~0.65–0.7)."
+          },
+          {
+            "aspect": "instrumentation / arrangement roles",
+            "tradition_position": "Instrumentation fields are 'TBD' (lead/bass), with no cinematic orchestration plan.",
+            "style_position": "Concert grand piano as lead, orchestral double bass for bass, string_pad_lush as ambient; no percussion.",
+            "agreement": "partial",
+            "recommendation": "style",
+            "reasoning": "Style Translator’s instrumentation is coherent with their stated target-style evidence (piano-led cinematic ballad with orchestral strings). Tradition provides no concrete instrumentation. Soft-rule check: without any dynamics/articulation evidence, I can only judge role clarity; the piano/strings/bass division is consistent and should support harmonic clarity and emotional pacing."
+          }
+        ],
+        "global_concerns": [
+          "Hard-rule tempo mismatch: both proposed tempos (88 and 114) violate the ±20% constraint relative to the input tempo (~69 BPM).",
+          "Chord progression is missing/incomplete in both proposals, preventing any meaningful assessment of harmonic motion smoothness or melody-harmony tension beyond literal chord clashes.",
+          "Several Tradition fields remain 'TBD' (rhythm_pattern, voicing_style, chord_progression bar mapping, instrumentation), limiting evaluability and synthesis readiness."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9319595694541931,
+        "sim_intra_tradition": null,
+        "sim_intra_style": null,
+        "hard_match_ratio": 0.0
+      }
+    },
+    {
+      "round": 2,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable evidence for the input material is consistently minor-key (e.g., F minor, Bb minor), so preserving minor-mode tonality is important for recognizability.",
+          "Tempo in the closest matches clusters around ~73 to ~110 BPM, so the arrangement should stay within that broad mid-to-slow ballad pacing (minimal tempo drift).",
+          "The input/closest matches show relatively high note density (≈16–18), so the texture should remain moderately full rather than sparse.",
+          "Chordal content appears prominent in the evidence (high chord channel scores), so chord foregrounding should be preserved.",
+          "Clap/percussive elements may be part of the identity (high clap scores in some close matches), but the exact presence in the input is not confirmed by the provided evidence."
+        ],
+        "proposals": {
+          "chord_progression": [],
+          "rhythm_pattern": "ballad_arpeggio",
+          "tempo_bpm": 110,
+          "voicing_style": "open_voicing_wide_spread",
+          "texture_density": 0.62,
+          "instrumentation": {
+            "lead": "concert_grand_piano",
+            "bass": "orchestral_double_bass",
+            "percussion": null,
+            "ambient": "string_pad_lush"
+          }
+        },
+        "reservations": [
+          "I cannot provide the required full bar-by-bar chord progression because the input song’s chord_progression_by_bar (num_bars and per-bar chords) was not included in the prompt.",
+          "I’m deferring to the Style Translator for specific cinematic orchestration/arrangement idioms beyond the conservative preservation points (minor tonality, chord foregrounding, moderate density).",
+          "I’m deferring to the Music Theory Validator for any chord-extension choices (e.g., maj7/min7/sus2/add9) and for ensuring harmonic motion matches the input."
+        ],
+        "disagreements": [
+          "The Style Translator’s chord_progression field is empty; I cannot accept an empty progression because the output format requires the full bar-by-bar chord map of the input song."
+        ]
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target-style evidence emphasizes a piano-forward cinematic ballad with orchestral strings support (lead: concert_grand_piano; ambient: string_pad_lush).",
+          "Preferred harmonic colors in the target style lean on extended/suspended/minor-7 colors (maj7, min7, sus2, add9).",
+          "Reference rhythm idioms for cinematic ballads are limited to two options: ballad_arpeggio or ballad_sustained_pads.",
+          "Target texture density is in a moderate band (0.4–0.7), so keep arrangement moderately full rather than dense/overcrowded."
+        ],
+        "proposals": {
+          "chord_progression": [],
+          "rhythm_pattern": "ballad_arpeggio",
+          "tempo_bpm": 102,
+          "voicing_style": "open_voicing_wide_spread",
+          "texture_density": 0.62,
+          "instrumentation": {
+            "lead": "concert_grand_piano",
+            "bass": "orchestral_double_bass",
+            "percussion": null,
+            "ambient": "string_pad_lush"
+          }
+        },
+        "reservations": [
+          "I cannot output a complete FULL chord progression for the input song because the retrieval evidence provided here does not include the input song’s bar-by-bar chord progression map (and the Style Translator is required to match num_bars).",
+          "Tempo_bpm is set within the cinematic-ballad reference range and near the reference mean, but the input song’s actual tempo was not provided in the evidence."
+        ],
+        "disagreements": [
+          "The Tradition Guardian’s round-2 placeholders (TBD) are not actionable for chord_progression; I’m leaving chord_progression empty rather than inventing a bar-by-bar map."
+        ]
+      },
+      "hard_rule_tradition": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 110 not within ±20% of input 69.00009660013524"
+          }
+        ],
+        "warnings": [
+          {
+            "rule": "melody_clash",
+            "detail": "no chord progression to check"
+          }
+        ]
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 102 not within ±20% of input 69.00009660013524"
+          }
+        ],
+        "warnings": [
+          {
+            "rule": "melody_clash",
+            "detail": "no chord progression to check"
+          }
+        ]
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "tempo_bpm",
+            "tradition_position": "Sets cinematic ballad tempo to 110 BPM.",
+            "style_position": "Sets cinematic ballad tempo to 102 BPM.",
+            "agreement": "disagree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals fail the hard tempo constraint (±20% of input tempo 69.00009660013524), so neither is acceptable as-is. Creative suggestion: choose a tempo within the allowed band (roughly 55–83 BPM) rather than 102 or 110; between the two, 102 is closer to the upper edge but still outside the band, so the only valid preference is to move both down into range."
+          },
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Leaves chord_progression empty, citing missing input chord_progression_by_bar in the prompt.",
+            "style_position": "Leaves chord_progression empty for the same reason.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both agents provide empty chord_progression fields, and the hard-rule checker indicates it could not check melody/harmony clashes due to missing progression. Since the task requires the full bar-by-bar chord map of the input song, neither proposal is usable. Creative suggestion: defer synthesis until chord_progression_by_bar is available from retrieval; otherwise any harmonic motion assessment is impossible."
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "Uses rhythm_pattern = ballad_arpeggio.",
+            "style_position": "Uses rhythm_pattern = ballad_arpeggio.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both align on ballad_arpeggio, which is consistent with the target cinematic ballad feel and with the provided style/texture observations (moderate density). Soft-rule check: with no chord progression provided, I can’t evaluate melody-harmony tension or smoothness of harmonic motion, but the shared rhythmic choice is stylistically coherent."
+          },
+          {
+            "aspect": "voicing_style",
+            "tradition_position": "open_voicing_wide_spread.",
+            "style_position": "open_voicing_wide_spread.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both propose the same voicing approach, which generally supports a cinematic ballad’s spaciousness and avoids overly tight clustering. Soft-rule check: without the actual chord-by-bar content, I can’t verify whether specific voice-leading would be smooth, but the voicing choice itself is coherent with the stated lead/ambient roles."
+          },
+          {
+            "aspect": "texture_density",
+            "tradition_position": "texture_density = 0.62.",
+            "style_position": "texture_density = 0.62.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both match the same moderate density target (and the style translator explicitly notes 0.4–0.7 as the desired band). Soft-rule check: this should help avoid overcrowding and supports a balanced cinematic ballad texture, though harmonic-motion smoothness can’t be assessed without chords."
+          },
+          {
+            "aspect": "instrumentation/arrangement balance",
+            "tradition_position": "Lead concert_grand_piano; bass orchestral_double_bass; ambient string_pad_lush; percussion null.",
+            "style_position": "Lead concert_grand_piano; bass orchestral_double_bass; ambient string_pad_lush; percussion null.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both propose the same instrumentation and leave percussion unspecified/null, which is consistent with a cinematic ballad where piano + bass + lush strings can carry the harmonic and emotional weight. Soft-rule check: since dynamics/articulation aren’t provided, I can’t judge balance in performance terms, but the roles are coherent and non-conflicting."
+          }
+        ],
+        "global_concerns": [
+          "Both proposals leave chord_progression empty, preventing any meaningful soft-rule evaluation of harmonic motion smoothness or melody-harmony tension.",
+          "Both proposed tempos (110 and 102 BPM) violate the hard tempo constraint relative to the input tempo (~69 BPM).",
+          "Because chord progression is missing, potential extended-chord color choices (maj7/min7/sus2/add9) cannot be validated against the input’s harmonic rhythm or key center."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9995722770690918,
+        "sim_intra_tradition": 0.9318808317184448,
+        "sim_intra_style": 0.9996762275695801,
+        "hard_match_ratio": 0.75
+      }
+    }
+  ],
+  "termination_status": "converged",
+  "rounds_used": 2,
+  "final_metrics": {
+    "sim_inter": 0.9995722770690918,
+    "sim_intra_tradition": 0.9318808317184448,
+    "sim_intra_style": 0.9996762275695801,
+    "hard_match_ratio": 0.75
+  }
+}

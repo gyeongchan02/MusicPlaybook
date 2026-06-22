@@ -1,0 +1,100 @@
+{
+  "metadata": {
+    "input_song_id": "POP909_064",
+    "target_style": "upbeat jazz",
+    "system_version": "multi_agent_v2_heterogeneous",
+    "timestamp": "2026-06-09T09:41:41",
+    "termination_status": "single_call_baseline",
+    "rounds_used": 0,
+    "hard_rule_check": {
+      "passed": true,
+      "violations": [],
+      "warnings": []
+    }
+  },
+  "preserved": {
+    "melody_source": "input.MELODY_track",
+    "key": "C minor",
+    "num_bars": 7,
+    "original_chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "section_structure": [
+      {
+        "name": "A",
+        "start_bar": 1,
+        "end_bar": 7
+      }
+    ]
+  },
+  "transformations": {
+    "chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "rhythm_pattern": "jazz_swing_8th",
+    "tempo_bpm": 72,
+    "voicing_style": "shell_voicing",
+    "texture_density": 0.65,
+    "instrumentation": {
+      "lead": "acoustic_piano",
+      "bass": "walking_upright_bass",
+      "percussion": "jazz_brushed_kit",
+      "ambient": null
+    }
+  },
+  "natural_language_summary": "Rearrange POP909_064 into an upbeat jazz piano trio feel while keeping the original 7-bar chord progression in C minor. Use a jazz swing 8th rhythm with shell voicings on acoustic piano, and add a walking upright bass line to drive the harmony. Keep the texture moderately dense (around 0.65) and include a brushed jazz kit for light, propulsive groove. Creative suggestion: emphasize chord extensions (e.g., min7/maj7 color tones) within the existing chord identities to enhance the upbeat jazz character without changing the bar-by-bar harmony."
+}

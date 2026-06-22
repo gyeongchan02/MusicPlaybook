@@ -1,0 +1,100 @@
+{
+  "metadata": {
+    "input_song_id": "POP909_064",
+    "target_style": "bossa nova",
+    "system_version": "multi_agent_v2_heterogeneous",
+    "timestamp": "2026-06-09T09:41:51",
+    "termination_status": "single_call_baseline",
+    "rounds_used": 0,
+    "hard_rule_check": {
+      "passed": true,
+      "violations": [],
+      "warnings": []
+    }
+  },
+  "preserved": {
+    "melody_source": "input.MELODY_track",
+    "key": "C minor",
+    "num_bars": 7,
+    "original_chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "section_structure": [
+      {
+        "name": "A",
+        "start_bar": 1,
+        "end_bar": 7
+      }
+    ]
+  },
+  "transformations": {
+    "chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "rhythm_pattern": "bossa_clave",
+    "tempo_bpm": 60,
+    "voicing_style": "bossa_guitar_voicing",
+    "texture_density": 0.5,
+    "instrumentation": {
+      "lead": "nylon_guitar",
+      "bass": "fretless_bass",
+      "percussion": "bossa_shaker_brush",
+      "ambient": null
+    }
+  },
+  "natural_language_summary": "Recast POP909_064 into a bossa nova feel while keeping the original 7-bar C minor harmony intact (F:maj → Bb:sus2 → D:min7/b7 → C:maj/3 → F:min → C:min → F:min). Use a bossa_clave groove at 60 BPM with soft, brushed shaker percussion and a nylon-guitar lead employing bossa_guitar_voicing. Add a fretless bass to gently outline chord roots and common tones, maintaining a light texture density around 0.5. creative suggestion: keep the guitar rhythm understated and syncopated to match the bossa nova swing without changing the chord map."
+}

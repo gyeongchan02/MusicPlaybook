@@ -24,7 +24,13 @@ def _add_ninth(pitches: list[int], root_pc: int) -> list[int]:
     return pitches
 
 
-def build_voicing(parsed: ParsedChord, style_cfg: dict) -> list[int]:
+def build_voicing(
+    parsed: ParsedChord,
+    style_cfg: dict,
+    *,
+    register_low: int = 48,
+    register_high: int = 84,
+) -> list[int]:
     strategy = style_cfg.get("strategy", "spread")
     root_pc = parsed.root_pc
     base = int(style_cfg.get("base_midi", 60))
@@ -46,4 +52,4 @@ def build_voicing(parsed: ParsedChord, style_cfg: dict) -> list[int]:
 
     max_voices = int(style_cfg.get("max_voices", 5))
     voices = sorted(set(voices))[:max_voices]
-    return _clamp_register(voices)
+    return _clamp_register(voices, low=register_low, high=register_high)

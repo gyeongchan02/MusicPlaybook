@@ -8,6 +8,8 @@ from typing import Iterable
 
 import pretty_midi
 
+from .timing import BeatGrid
+
 
 @dataclass(frozen=True)
 class ChordSegment:
@@ -39,6 +41,81 @@ def resolve_tracks(pm: pretty_midi.PrettyMIDI) -> dict[str, pretty_midi.Instrume
 
 def load_pop909_midi(path: Path) -> pretty_midi.PrettyMIDI:
     return pretty_midi.PrettyMIDI(str(path))
+
+
+def _collapse_to_lead_line(notes: list[pretty_midi.Note]) -> list[pretty_midi.Note]:
+    """Keep one note per onset (top pitch) so BRIDGE doublings don't muddy the lead."""
+    grouped: dict[float, list[pretty_midi.Note]] = {}
+    for note in notes:
+        key = round(note.start, 2)
+        grouped.setdefault(key, []).append(note)
+    collapsed: list[pretty_midi.Note] = []
+    for group in grouped.values():
+        collapsed.append(max(group, key=lambda n: (n.pitch, n.velocity)))
+    collapsed.sort(key=lambda n: (n.start, n.pitch))
+    return collapsed
+
+
+def _map_note(
+    note: pretty_midi.Note,
+    beat_grid: BeatGrid,
+    tempo_bpm: float,
+    velocity_cap: int,
+    velocity_floor: int,
+) -> pretty_midi.Note:
+    vel = max(velocity_floor, min(velocity_cap, note.velocity))
+    return pretty_midi.Note(
+        velocity=vel,
+        pitch=note.pitch,
+        start=beat_grid.map_time(note.start, tempo_bpm),
+        end=beat_grid.map_time(note.end, tempo_bpm),
+    )
+
+
+def build_preserved_melody(
+    tracks: dict[str, pretty_midi.Instrument | None],
+    beat_grid: BeatGrid,
+    tempo_bpm: float,
+    lead_program_name: str = "Vibraphone",
+    velocity_cap: int = 118,
+    velocity_floor: int = 92,
+) -> pretty_midi.Instrument:
+    """
+    Preserve the audible lead line from POP909.
+
+    MELODY is the primary vocal line, but many songs (e.g. POP909_064) carry the
+    intro tune on BRIDGE until MELODY enters. Copy MELODY always, and fill the
+    pre-entry gap with BRIDGE notes so the opening phrase is not lost.
+    """
+    melody_src = tracks.get("melody")
+    if melody_src is None or not melody_src.notes:
+        raise ValueError("No MELODY track notes to preserve")
+
+    melody_first = min(note.start for note in melody_src.notes)
+    melody_min_pitch = min(note.pitch for note in melody_src.notes)
+    bridge_src = tracks.get("bridge")
+
+    lead_program = pretty_midi.instrument_name_to_program(lead_program_name)
+    melody = pretty_midi.Instrument(program=lead_program, name="MELODY")
+
+    for note in melody_src.notes:
+        melody.notes.append(
+            _map_note(note, beat_grid, tempo_bpm, velocity_cap, velocity_floor)
+        )
+
+    if bridge_src is not None:
+        bridge_cap = max(velocity_floor, velocity_cap - 6)
+        for note in bridge_src.notes:
+            if note.start >= melody_first - 1e-6:
+                continue
+            if note.pitch < melody_min_pitch - 2:
+                continue
+            melody.notes.append(
+                _map_note(note, beat_grid, tempo_bpm, bridge_cap, velocity_floor - 4)
+            )
+
+    melody.notes = _collapse_to_lead_line(melody.notes)
+    return melody
 
 
 def parse_chord_file(chord_txt: Path) -> list[ChordSegment]:

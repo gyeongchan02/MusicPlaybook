@@ -1,0 +1,965 @@
+{
+  "user_query": {
+    "input_song_idx": 2,
+    "target_style": "lo-fi chill"
+  },
+  "retrieval_a_summary": {
+    "top_similar": [
+      "POP909_268",
+      "POP909_230",
+      "POP909_249"
+    ]
+  },
+  "retrieval_b_summary": {
+    "references": [
+      "POP909_230",
+      "POP909_174",
+      "POP909_199"
+    ]
+  },
+  "pre_analysis": {
+    "tradition": {
+      "summary": "The input song (idx 2) aligns most closely with lo-fi/pop tracks in minor keys, with a slow-to-mid tempo range and moderate-to-high note density. Comparable pieces suggest a groove-forward identity driven by rhythm and percussion (clap) presence, alongside a steady harmonic bed.",
+      "musical_traits": [
+        {
+          "trait": "Minor-key orientation (as a core identity cue)",
+          "evidence": "Comparable pieces include POP909_268 in C minor and POP909_249 in C minor (both explicitly labeled minor)."
+        },
+        {
+          "trait": "Slow-to-mid tempo feel",
+          "evidence": "Comparable pieces show tempos of 60.0 (POP909_268), 114.0004 (POP909_249), and 120.0 (POP909_230)."
+        },
+        {
+          "trait": "Moderate-to-high note density",
+          "evidence": "Comparable note_density values are 18.5192 (POP909_268), 8.0729 (POP909_230), and 13.1607 (POP909_249)."
+        },
+        {
+          "trait": "Rhythm and clap/percussion are prominent contributors",
+          "evidence": "Channel scores emphasize rhythm (0.8235 for POP909_268; 0.9529 for POP909_230) and clap (0.7623 for POP909_268; 0.8022 for POP909_230; 0.7767 for POP909_249)."
+        },
+        {
+          "trait": "Chordal support is present but secondary to rhythm/clap",
+          "evidence": "Channel scores for chord are mid-range relative to rhythm/clap: 0.5578 (POP909_268), 0.7388 (POP909_230), 0.6300 (POP909_249)."
+        },
+        {
+          "trait": "Key center varies across comparables (C minor vs Bb major), implying flexibility in tonality while retaining groove traits",
+          "evidence": "Comparable keys include C minor (POP909_268, POP909_249) and Bb major (POP909_230)."
+        }
+      ],
+      "implications_for_arrangement": [
+        "Preserve the song’s groove emphasis by keeping rhythm and clap/percussion as primary drivers, rather than letting harmony become the lead element.",
+        "Maintain a similar tempo region (roughly 60–120 BPM) to keep the same overall pacing character.",
+        "If re-harmonizing or transposing, prioritize retaining the rhythmic feel and density profile over exact key matching, since comparables span C minor and Bb major.",
+        "Keep harmonic movement steady and supportive (mid-level chord prominence), aligning with the observed balance where chord is present but not dominant."
+      ]
+    },
+    "style": {
+      "summary": "The retrieved references for lo-fi chill center on mellow, piano-forward harmony at low tempos (roughly 70–90 BPM) with relatively moderate-to-high note density. Harmonic motion favors sustained/extended color tones (sus chords and 7/9/11 extensions), creating a relaxed, jazzy-smooth backdrop suitable for chill hip-hop textures.",
+      "musical_traits": [
+        {
+          "trait": "Low tempo with chill pacing",
+          "evidence": "Reference tempos: 120.0 BPM (POP909_230), 72.99998296667064 BPM (POP909_174), 58.000042533364514 BPM (POP909_199); aggregated mean tempo ≈ 83.67 BPM with std ≈ 26.41."
+        },
+        {
+          "trait": "Mellow piano/keys as a core timbral marker",
+          "evidence": "clap_text_prompt specifies 'mellow piano' and instrumentation_options lists lead as 'rhodes_electric_piano'."
+        },
+        {
+          "trait": "Extended and color-toned harmony (maj7/maj9/min7/min11) plus sus chords",
+          "evidence": "aggregated_style_features: preferred_chord_extensions = ['maj7','maj9','min7','min11']; reference progressions include multiple sus chords (e.g., Bb:sus2, Bb:sus2, Ab:sus2, Bb:sus4) and 7th/min7 types (e.g., F:min7/b7, F:min7, F:min)."
+        },
+        {
+          "trait": "Chords often move in slow, loop-like progressions",
+          "evidence": "Progressions show repeated or alternating harmonic centers across consecutive bars (e.g., POP909_174 alternates A:maj and C#:min across bars 1–4; POP909_230 repeats Bb:sus2 across bars 1–2 and 4–5)."
+        },
+        {
+          "trait": "Lo-fi rhythmic feel options aligned with chill hip-hop",
+          "evidence": "aggregated_style_features lists rhythm_pattern_options: ['lofi_swung_16th','lofi_straight_8th']."
+        },
+        {
+          "trait": "Moderate texture density with room for groove/percussion",
+          "evidence": "aggregated_style_features texture_density_range = [0.3, 0.5]; reference note_density values are mid-to-high (≈8.07 to ≈17.29)."
+        }
+      ],
+      "implications_for_arrangement": [
+        "Prioritize a rhodes/electric piano lead with sustained, mellow voicings; use sus chords and extended tones (maj7/9, min7, min11) to match the style’s harmonic color.",
+        "Keep the tempo in the ~70–90 BPM comfort zone (allowing some variation) and design harmony in loop-friendly bar spans (repetition/alternation across several bars).",
+        "Choose a lo-fi groove foundation from swung 16ths or straight 8ths, and leave enough texture space to accommodate brushed/lo-fi percussion.",
+        "If adding bass and ambience, align with the reference instrumentation options: upright bass plus lo-fi brushed kit and vinyl-crackle style ambient."
+      ]
+    }
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable evidence indicates a minor-key orientation is a core identity cue (C minor in POP909_268 and POP909_249).",
+          "Tempo character should remain in a slow-to-mid range (comparables span 60 BPM to ~120 BPM).",
+          "Groove/percussion emphasis appears important: rhythm and clap channel scores are consistently high relative to chord (e.g., rhythm 0.823–0.953; clap 0.762–0.802).",
+          "Harmony/chords seem present but secondary to groove (chord channel scores are lower than rhythm/clap in the comparables).",
+          "Texture/density should be moderate-to-high (note_density ranges ~8 to ~18.5 across comparables), so avoid making it too sparse."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "i"
+            },
+            {
+              "bar": 2,
+              "chord": "VI"
+            },
+            {
+              "bar": 3,
+              "chord": "III"
+            },
+            {
+              "bar": 4,
+              "chord": "VII"
+            },
+            {
+              "bar": 5,
+              "chord": "i"
+            },
+            {
+              "bar": 6,
+              "chord": "VI"
+            },
+            {
+              "bar": 7,
+              "chord": "III"
+            },
+            {
+              "bar": 8,
+              "chord": "VII"
+            }
+          ],
+          "rhythm_pattern": "lofi_chill_groove",
+          "tempo_bpm": 90,
+          "voicing_style": "warm_midrange_chords",
+          "texture_density": 0.62,
+          "instrumentation": {
+            "lead": "lofi_chopped_keys",
+            "bass": "soft_saturated_bass",
+            "percussion": "tape_lofi_drums_with_clap",
+            "ambient": null
+          }
+        },
+        "reservations": [
+          "I do not have the required full bar-by-bar chord progression for the specific input song (idx 2). The provided chord_progression is therefore a placeholder and must be replaced with the true input song’s bar map.",
+          "I’m deferring to the Style Translator for the exact lo-fi chill rhythmic/voicing idioms beyond the high-level preservation goals (groove/clap emphasis, supportive harmony).",
+          "I’m deferring to the Music Theory Validator for any concrete reharmonization choices once the real input progression is available."
+        ],
+        "disagreements": []
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target lo-fi chill references cluster around ~70–90 BPM (mean ≈83.7).",
+          "Harmony color leans on sus chords plus preferred extended colors: maj7/maj9/min7/min11.",
+          "Rhythm feel options for the style are limited to lofi_swung_16th and lofi_straight_8th.",
+          "Voicing leans toward spread_with_9ths or drop2_voicing (to keep extended harmony present but mellow).",
+          "Texture density in the style sits around 0.3–0.5, implying moderate layers (piano + bass + light percussion/ambient).",
+          "Reference timbre strongly favors mellow electric piano (rhodes_electric_piano) with upright bass and lo-fi brushed kit, plus vinyl_crackle ambience."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "Bb:sus2"
+            },
+            {
+              "bar": 2,
+              "chord": "Bb:sus2"
+            },
+            {
+              "bar": 3,
+              "chord": "Bb:sus2"
+            },
+            {
+              "bar": 4,
+              "chord": "Bb:sus2"
+            },
+            {
+              "bar": 5,
+              "chord": "Bb:sus2"
+            },
+            {
+              "bar": 6,
+              "chord": "F:sus4"
+            },
+            {
+              "bar": 7,
+              "chord": "F:sus4"
+            },
+            {
+              "bar": 8,
+              "chord": "Bb:maj7"
+            },
+            {
+              "bar": 9,
+              "chord": "Bb:maj9"
+            },
+            {
+              "bar": 10,
+              "chord": "C:maj7"
+            }
+          ],
+          "rhythm_pattern": "lofi_swung_16th",
+          "tempo_bpm": 82,
+          "voicing_style": "spread_with_9ths",
+          "texture_density": 0.42,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "I did not receive the input song’s full bar-by-bar chord map or tempo, so the chord progression and tempo in this proposal are creative lo-fi-chill adaptations rather than guaranteed matches to the input.",
+          "If the input song has a different harmonic rhythm/length (num_bars), the chord map here must be conformed to that exact bar count and chord events."
+        ],
+        "disagreements": []
+      },
+      "hard_rule_tradition": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 90 not within ±20% of input 60.0"
+          },
+          {
+            "rule": "rhythm_pattern_enum",
+            "detail": "'lofi_chill_groove' not in ['lofi_swung_16th', 'lofi_straight_8th']"
+          },
+          {
+            "rule": "voicing_style_enum",
+            "detail": "'warm_midrange_chords' not in ['spread_with_9ths', 'drop2_voicing']"
+          }
+        ],
+        "warnings": []
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 82 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": [
+          {
+            "rule": "cadence",
+            "detail": "Weak cadence: Bb:maj9 -> C:maj7 does not strongly resolve to tonic."
+          }
+        ]
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Uses a minor-key, degree-based loop (i–VI–III–VII) over 8 bars, but explicitly notes it is a placeholder because the full input bar-by-bar chord map for idx 2 was not provided.",
+            "style_position": "Uses a Bb-centered sus/maj7/maj9 progression over 10 bars (Bb:sus2 repeated, then F:sus4, then Bb:maj7/maj9 and C:maj7), but explicitly notes it is a creative adaptation because the input song’s full chord map/tempo were not provided.",
+            "agreement": "partial",
+            "recommendation": "compromise",
+            "reasoning": "Both agents’ chord maps are not validated against the required full input chord_progression_by_bar (each explicitly says they did not receive the input’s full bar-by-bar chord map). Given that, I can’t judge harmonic fit to the actual song—only stylistic coherence. Tradition’s i–VI–III–VII is broadly lo-fi/minor-friendly, but it conflicts with the hard-rule check indirectly (tradition tempo/rhythm/voicing enums, not harmony). Style’s Bb:sus2→F:sus4→Bb:maj7/maj9→C:maj7 has a clear extended-color direction, but the hard-rule check flags weak cadence at the end (Bb:maj9 -> C:maj7 not strongly resolving to tonic). creative suggestion: once the true input bar map is available, keep the style’s extended-sus/maj7 color approach while preserving the input’s actual chord events and bar count."
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "Chooses 'lofi_chill_groove' (unspecified pattern name beyond that label) and aims to preserve groove/clap emphasis.",
+            "style_position": "Chooses 'lofi_swung_16th' and keeps tempo in the lo-fi reference cluster.",
+            "agreement": "disagree",
+            "recommendation": "style",
+            "reasoning": "The hard-rule check shows tradition’s rhythm_pattern label is not an allowed enum ('lofi_chill_groove' not in ['lofi_swung_16th','lofi_straight_8th']). Style’s 'lofi_swung_16th' is within the allowed set, so it’s the only one that can be consistent with the validator constraints. creative suggestion: if the input feel is closer to straight 8ths, switch to 'lofi_straight_8th', but between these two options, style is the compliant choice."
+          },
+          {
+            "aspect": "tempo/feel consistency",
+            "tradition_position": "Sets tempo_bpm to 90 and argues slow-to-mid range is appropriate.",
+            "style_position": "Sets tempo_bpm to 82 and cites lo-fi chill references around ~70–90 BPM.",
+            "agreement": "disagree",
+            "recommendation": "style",
+            "reasoning": "The hard-rule check indicates both tempos violate the input-bound constraint (input tempo given as 60.0; both 90 and 82 are outside ±20%). Since both fail, I prefer the one closer to the lo-fi reference mean (style cites mean ≈83.7) and also aligns better with the style’s swung 16th feel. creative suggestion: to satisfy the hard constraint, tempo should be adjusted toward the input’s 60 BPM range, while retaining the chosen groove type."
+          },
+          {
+            "aspect": "voicing balance / harmonic texture",
+            "tradition_position": "Uses 'warm_midrange_chords' and sets texture_density to 0.62, aiming for moderate-to-high density.",
+            "style_position": "Uses 'spread_with_9ths' and sets texture_density to 0.42, aiming for moderate layers with extended harmony.",
+            "agreement": "disagree",
+            "recommendation": "style",
+            "reasoning": "The hard-rule check flags tradition’s voicing_style as not in the allowed enum ('warm_midrange_chords' not in ['spread_with_9ths','drop2_voicing']). Style’s 'spread_with_9ths' is allowed and also matches the style observation that extended colors (maj7/maj9/min7/min11) are a key lo-fi-chill color. Soft-rule note: style’s lower texture_density (0.42) is more likely to avoid muddiness in a lo-fi chill context than tradition’s 0.62, which could become dense if the melody is active (creative suggestion: confirm against the actual input arrangement density once available)."
+          },
+          {
+            "aspect": "melody–harmony tension / cadence smoothness",
+            "tradition_position": "No explicit cadence/voice-leading rationale beyond general groove-first harmony secondary role.",
+            "style_position": "Ends with Bb:maj9 -> C:maj7 and includes a cadence warning from the hard-rule check.",
+            "agreement": "partial",
+            "recommendation": "tradition",
+            "reasoning": "The hard-rule check explicitly warns about weak cadence in the style proposal (Bb:maj9 -> C:maj7 does not strongly resolve to tonic). Tradition’s i–VI–III–VII loop is more naturally cyclical in minor contexts, which may reduce end-of-loop tension (soft-rule: smoother harmonic motion and less abrupt functional shift). However, because both chord progressions are placeholders relative to the actual input bar map, this is only a general harmonic-cadence judgment. creative suggestion: if using style’s extended chords, ensure the final bar resolves to the actual tonic/function implied by the input’s chord map."
+          }
+        ],
+        "global_concerns": [
+          "Both proposals explicitly lack the required full input song bar-by-bar chord map/tempo for idx 2, so chord_progression alignment to the actual song cannot be validated (soft-rule and hard-rule implications).",
+          "Hard-rule compliance is currently poor for both: tradition fails rhythm_pattern and voicing_style enums and tempo bound; style fails tempo bound and has a cadence weakness warning.",
+          "Because tempo is constrained to be within ±20% of input tempo (60.0), both 90 and 82 likely need adjustment to meet the validator constraints before any stylistic fine-tuning."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9559464454650879,
+        "sim_intra_tradition": null,
+        "sim_intra_style": null,
+        "hard_match_ratio": 0.0
+      }
+    },
+    {
+      "round": 2,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable pieces for the input are predominantly minor-key (e.g., C minor in POP909_268 and POP909_249), suggesting minor tonality is an identity cue.",
+          "Tempo identity should remain in a slow-to-mid region; comparables span 60 BPM to ~120 BPM.",
+          "Rhythm and percussion/clap are emphasized in the closest matches (channel scores for rhythm and clap are higher than chord), so the arrangement should keep groove/percussion as a primary driver.",
+          "Chordal support appears present but not dominant relative to rhythm/clap (mid-range chord channel scores), so harmony should remain supportive rather than lead."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 2,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 3,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 4,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 5,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 6,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 7,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 8,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 9,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 10,
+              "chord": "UNKNOWN"
+            }
+          ],
+          "rhythm_pattern": "lofi_straight_8th",
+          "tempo_bpm": 72,
+          "voicing_style": "drop2_voicing",
+          "texture_density": 0.45,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": null
+          }
+        },
+        "reservations": [
+          "I cannot provide the required FULL bar-by-bar chord progression for the input song because the retrieval does not include the input song’s chord_progression_by_bar (and num_bars).",
+          "Creative suggestion: choose a conservative tempo near the input’s slow-to-mid identity (within ±20%) and keep chord support secondary to rhythm/clap.",
+          "Creative suggestion: prefer a simpler lofi groove (straight 8ths) to avoid changing the input’s groove identity too aggressively."
+        ],
+        "disagreements": [
+          "The style translator’s chord progression is not grounded in the input’s actual bar-by-bar harmony (no input chord_progression_by_bar was provided), so it risks damaging the input’s harmonic identity."
+        ]
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target lo-fi chill references cluster around a low-to-mid tempo pocket (~70–90 BPM; mean ~83.7 BPM).",
+          "Style profile emphasizes mellow piano/keys as the lead (rhodes_electric_piano) with extended/suspended harmony color (maj7/maj9/min7/min11; sus chords common in references).",
+          "Rhythm feel should come from lo-fi hip-hop idioms: either lofi_swung_16th or lofi_straight_8th.",
+          "Texture density should stay moderate (style range 0.3–0.5), leaving room for lo-fi percussion.",
+          "Voicing should be derived from either spread_with_9ths or drop2_voicing to match the relaxed, extended-chord sound."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 2,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 3,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 4,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 5,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 6,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 7,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 8,
+              "chord": "RETRIEVAL_MISSING_FOR_INPUT_SONG_IDX_2"
+            }
+          ],
+          "rhythm_pattern": "lofi_swung_16th",
+          "tempo_bpm": 84,
+          "voicing_style": "spread_with_9ths",
+          "texture_density": 0.42,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "I cannot provide the FULL bar-by-bar chord progression for input_song_idx 2 because the retrieval does not include that map. The chord_progression field is therefore left as a placeholder.",
+          "I’m deferring any concrete reharmonization decisions (e.g., which bars get maj7 vs sus vs min11) to the Music Theory Validator once the true input progression is available.",
+          "I’m not adopting the other agent’s specific placeholder minor-key progression because it is explicitly not the real input song’s bar map."
+        ],
+        "disagreements": [
+          "Tradition Guardian’s chord progression is a placeholder (no input idx 2 bar map provided), so it should not be used as-is for style translation."
+        ]
+      },
+      "hard_rule_tradition": {
+        "passed": true,
+        "violations": [],
+        "warnings": []
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 84 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": []
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "tempo_bpm",
+            "tradition_position": "72 BPM, slow-to-mid lo-fi pocket; aligns with tradition’s identity cue.",
+            "style_position": "84 BPM, lo-fi chill reference mean (~83.7 BPM).",
+            "agreement": "partial",
+            "recommendation": "tradition",
+            "reasoning": "The hard-rule checker flagged the style translator’s tempo (84 BPM) as outside the allowed ±20% of the input’s 60.0 BPM, so tradition’s 72 BPM is the safer choice for maintaining tempo/feel consistency. (Soft note: style’s reference-mean argument is creative/heuristic and not grounded in the input’s specific tempo constraint.)"
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "lofi_straight_8th (straight, groove-forward).",
+            "style_position": "lofi_swung_16th (more hip-hop swing).",
+            "agreement": "partial",
+            "recommendation": "compromise",
+            "reasoning": "Tradition’s rhythm choice is supported by its observation that rhythm/percussion/clap are emphasized in the closest matches, and it also aims to avoid changing groove identity too aggressively (creative suggestion). Style’s swung 16ths aligns with lo-fi hip-hop idioms (creative suggestion), but it may increase rhythmic character shift. Compromise: keep the straight-8th baseline from tradition while allowing mild swing feel only if it doesn’t disrupt the input’s groove (creative suggestion)."
+          },
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Placeholder UNKNOWN chords for bars 1–10; includes reservation that it cannot provide the real FULL bar-by-bar map.",
+            "style_position": "Placeholder RETRIEVAL_MISSING... chords for bars 1–8; explicitly defers concrete reharmonization.",
+            "agreement": "disagree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals fail the core requirement to use the true input song’s FULL bar-by-bar chord progression: tradition lacks the real input chord_progression_by_bar and uses UNKNOWN placeholders; style also uses placeholders and even has fewer bars (1–8) than tradition (1–10). Given the soft-rule goal of stylistic coherence and smooth harmonic motion, neither placeholder can be judged for harmonic smoothness or tension relative to the actual melody/harmony. Therefore, the only defensible direction is to compromise by not committing to either placeholder set and waiting for the actual input chord progression map before selecting extended-chord colors (creative suggestion)."
+          },
+          {
+            "aspect": "voicing_style",
+            "tradition_position": "drop2_voicing.",
+            "style_position": "spread_with_9ths.",
+            "agreement": "partial",
+            "recommendation": "tradition",
+            "reasoning": "Tradition’s voicing aligns with its overall intent to keep harmony supportive (creative suggestion) while maintaining a lo-fi texture density (0.45). Style’s spread-with-9ths is consistent with its claim that extended/suspended harmony color is common in references, but since the actual chord progression is missing, we cannot verify whether those 9th-based colors would create unwanted melody-harmony tension or harmonic motion issues in the real context. With missing harmonic content, tradition’s more conservative drop2 approach is the lower-risk choice for voicing balance."
+          },
+          {
+            "aspect": "texture_density / arrangement balance",
+            "tradition_position": "texture_density 0.45; harmony supportive to rhythm/clap.",
+            "style_position": "texture_density 0.42; leaves room for lo-fi percussion.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both are in the same moderate density range (0.42–0.45) and both aim to keep room for percussion, which supports stylistic coherence and voicing balance. Since chord content is missing, the density choice is one of the few aspects that can be assessed reliably; they are effectively aligned."
+          },
+          {
+            "aspect": "instrumentation / lead role",
+            "tradition_position": "lead rhodes_electric_piano; bass upright_bass; percussion lofi_brushed_kit; no ambient.",
+            "style_position": "lead rhodes_electric_piano; bass upright_bass; percussion lofi_brushed_kit; ambient vinyl_crackle.",
+            "agreement": "partial",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals share the same core timbral plan (Rhodes lead + upright bass + brushed kit), which supports stylistic coherence. Style adds vinyl_crackle as ambient; tradition omits ambient. Soft-rule impact: adding ambient can increase perceived density and potentially mask voicing clarity, but since neither proposal provides dynamics/articulation evidence, this is speculative. Compromise: keep Rhodes/bass/percussion as the anchor (shared ground) and treat ambient as optional only if it doesn’t blur the harmonic voicing (creative suggestion)."
+          }
+        ],
+        "global_concerns": [
+          "Chord progression is not actually grounded in the input song’s true FULL bar-by-bar harmony: both agents use placeholders (UNKNOWN / RETRIEVAL_MISSING...), so harmonic smoothness and melody-harmony tension cannot be evaluated against the real progression.",
+          "Style translator’s tempo (84 BPM) violates the hard tempo-bound constraint relative to input tempo 60.0 BPM, so feel consistency is at risk.",
+          "Bar coverage mismatch: tradition proposes bars 1–10 while style proposes bars 1–8; without the true num_bars/chord map, this can cause structural inconsistency."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9125069379806519,
+        "sim_intra_tradition": 0.958724319934845,
+        "sim_intra_style": 0.8996186256408691,
+        "hard_match_ratio": 0.0
+      }
+    },
+    {
+      "round": 3,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable evidence for the input song suggests a minor-key orientation is a core identity cue (e.g., C minor in POP909_268 and POP909_249).",
+          "The input’s pacing/groove identity sits in a slow-to-mid tempo pocket (comparables span ~60 to ~120 BPM).",
+          "Rhythm/percussion (including clap) appears to be a primary driver in the closest references (high rhythm and clap channel scores).",
+          "Chordal support exists but is not the dominant contributor in the comparable channel scoring (chord scores are mid-range vs rhythm/clap).",
+          "Note density for the closest matches is moderate-to-high (e.g., ~13–18.5 in the minor-key comparables), implying the arrangement should not become overly sparse."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 2,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 3,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 4,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 5,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 6,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 7,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 8,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            }
+          ],
+          "rhythm_pattern": "lofi_straight_8th",
+          "tempo_bpm": 84,
+          "voicing_style": "drop2_voicing",
+          "texture_density": 0.45,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "The required FULL bar-by-bar chord progression for input_song_idx 2 is not present in the provided retrieval evidence, so I cannot preserve the exact harmonic motion without the true bar map.",
+          "I’m deferring any specific reharmonization or chord-quality decisions (e.g., which bars use sus/maj7/min11) to the Music Theory Validator once the real progression is available."
+        ],
+        "disagreements": [
+          "I cannot accept the other agent’s placeholder chord progression entries (they are explicitly missing the real input song’s bar-by-bar map).",
+          "Any claim that a specific chord progression (or bar count) matches the input song would be unsupported because the retrieval does not include the input’s chord progression map."
+        ]
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target lo-fi chill references cluster around ~70–90 BPM (mean ≈83.7 BPM) with relaxed, loopable harmonic color.",
+          "Style harmony cues emphasize color tones via sus chords and preferred extensions (maj7/maj9/min7/min11).",
+          "Rhythm options for the style are limited to lofi_swung_16th or lofi_straight_8th; texture density target is moderate (0.3–0.5).",
+          "Instrumentation in the target style profile is consistently piano-forward: rhodes_electric_piano lead, upright_bass, and lofi_brushed_kit; optional ambient is vinyl_crackle."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 2,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 3,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 4,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 5,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 6,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 7,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 8,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 9,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 10,
+              "chord": "UNKNOWN"
+            }
+          ],
+          "rhythm_pattern": "lofi_swung_16th",
+          "tempo_bpm": 84,
+          "voicing_style": "spread_with_9ths",
+          "texture_density": 0.45,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "The required FULL input chord_progression_by_bar was not provided in the retrieval evidence for this round, so I cannot output a grounded bar-by-bar progression for the input song.",
+          "Creative suggestion: once the input bar-by-bar chords are available, reharmonize/voice them using the style’s preferred extensions (maj7/maj9/min7/min11) and/or sus colors while keeping the underlying chord centers intact."
+        ],
+        "disagreements": [
+          "Tradition Guardian leaves the chord_progression as UNKNOWN; I also cannot fill it from evidence, but my other parameters (rhythm/voicing/instrumentation) are aimed to better convey the lo-fi chill profile."
+        ]
+      },
+      "hard_rule_tradition": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 84 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": []
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 84 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": []
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "tempo_bpm",
+            "tradition_position": "Sets tempo_bpm=84 based on comparable ~60–120 BPM pacing.",
+            "style_position": "Sets tempo_bpm=84 based on style reference clustering ~70–90 BPM.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals choose the same tempo (84). The hard-rule checker flags this as outside the allowed ±20% of the input tempo (input 60.0), so neither can be accepted as-is. Creative suggestion: adjust tempo toward the allowed range rather than keeping 84."
+          },
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Provides an 8-bar chord map but with placeholder UNKNOWN entries, and explicitly notes the full input bar-by-bar progression is missing from evidence.",
+            "style_position": "Provides a 10-bar chord map with UNKNOWN entries, also explicitly noting the full input progression is missing from evidence.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals fail the core soft requirement of harmonic continuity to the input because the full bar-by-bar chord progression for input_song_idx 2 is not actually provided (both use UNKNOWN placeholders). Additionally, they disagree on bar count (8 vs 10), which risks structural mismatch. Creative suggestion: once the true chord_progression_by_bar is available, favor preserving the input chord centers and only apply style-appropriate voicing/color tones (e.g., sus/maj7/min7/min11) without changing the underlying bar-by-bar chord identity."
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "Chooses lofi_straight_8th.",
+            "style_position": "Chooses lofi_swung_16th.",
+            "agreement": "disagree",
+            "recommendation": "style",
+            "reasoning": "Given the target is 'lo-fi chill', a swung 16th feel (style proposal) is typically more consistent with that laid-back groove than straight 8ths. However, this is a stylistic judgment (creative suggestion) because the evidence provided here does not include the input’s exact rhythmic feel or bar-level rhythmic pattern."
+          },
+          {
+            "aspect": "voicing_style",
+            "tradition_position": "Uses drop2_voicing.",
+            "style_position": "Uses spread_with_9ths.",
+            "agreement": "disagree",
+            "recommendation": "style",
+            "reasoning": "For lo-fi chill, spread voicings with added 9ths generally create the desired mellow color tones and smoother perceived harmonic motion. This aligns with the style translator’s stated style harmony cues (extensions like maj7/maj9/min7/min11). Creative suggestion: once the real chords are known, prefer 9th-inclusive voicings where they fit the chord quality to avoid harsh dissonance."
+          },
+          {
+            "aspect": "texture_density",
+            "tradition_position": "Sets texture_density=0.45.",
+            "style_position": "Sets texture_density=0.45.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "They match exactly (0.45), which supports a moderate density appropriate for lo-fi chill without becoming overly sparse or cluttered. This is a soft-rule positive; no evidence contradicts it."
+          },
+          {
+            "aspect": "instrumentation/arrangement balance",
+            "tradition_position": "rhodes_electric_piano lead, upright_bass, lofi_brushed_kit, vinyl_crackle ambient.",
+            "style_position": "rhodes_electric_piano lead, upright_bass, lofi_brushed_kit, vinyl_crackle ambient.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals use the same core instrumentation and thus should maintain voicing balance and timbral coherence (piano-forward lead with brushed kit and upright bass). No soft-rule conflict is evident from the provided text."
+          }
+        ],
+        "global_concerns": [
+          "Tempo mismatch: both proposals set tempo_bpm=84, but the hard-rule checker says it is outside the allowed ±20% of the input tempo (input 60.0).",
+          "Harmonic continuity cannot be validated: both proposals leave the full bar-by-bar chord progression as UNKNOWN placeholders, and they also differ on bar count (8 vs 10), risking structural mismatch.",
+          "Potential melody-harmony tension cannot be assessed because the input’s actual chord progression (and any melody notes) are not provided in the evidence here."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9528752565383911,
+        "sim_intra_tradition": 0.9504077434539795,
+        "sim_intra_style": 0.9185101985931396,
+        "hard_match_ratio": 0.25
+      }
+    },
+    {
+      "round": 4,
+      "tradition_guardian": {
+        "key_observations": [
+          "Comparable pieces for the input are predominantly minor-key (e.g., C minor in POP909_268 and POP909_249), suggesting minor tonality is a core identity cue.",
+          "Tempo identity should remain in a slow-to-mid range: comparable tempos include 60 BPM and ~114–120 BPM.",
+          "The input’s groove identity appears rhythm/percussion-forward: channel scores emphasize rhythm (0.823–0.953) and clap (0.762–0.802) more than chords (0.558–0.739).",
+          "Chordal support is present but not the primary driver (mid-range chord channel scores), so harmony changes should be conservative and supportive rather than leading."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 2,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 3,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 4,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 5,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 6,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 7,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 8,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 9,
+              "chord": "UNKNOWN"
+            },
+            {
+              "bar": 10,
+              "chord": "UNKNOWN"
+            }
+          ],
+          "rhythm_pattern": "lofi_swung_16th",
+          "tempo_bpm": 84,
+          "voicing_style": "spread_with_9ths",
+          "texture_density": 0.45,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "The FULL bar-by-bar chord progression for the input song (input chord_progression_by_bar) was not provided in the retrieval evidence, so I cannot preserve the exact harmonic motion bar-by-bar.",
+          "Creative suggestion: once the input’s bar-by-bar chords are available, keep the same chord centers and bar-to-bar harmonic rhythm, then only adjust chord voicings/extension colors to fit lo-fi chill."
+        ],
+        "disagreements": []
+      },
+      "style_translator": {
+        "key_observations": [
+          "Target lo-fi chill style references cluster in a low-to-mid tempo pocket (mean ≈ 83.7 BPM; range given 70–90 BPM).",
+          "Harmony color in the references leans on sus chords and extended tones; preferred extensions include maj7/maj9/min7/min11.",
+          "Rhythm feel options for the target style are limited to: lofi_swung_16th or lofi_straight_8th.",
+          "Target timbre centers on mellow keys: lead = rhodes_electric_piano; with upright_bass, lofi_brushed_kit, and vinyl_crackle ambience.",
+          "Texture density for this style is expected to sit moderately (range 0.3–0.5)."
+        ],
+        "proposals": {
+          "chord_progression": [
+            {
+              "bar": 1,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 2,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 3,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 4,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 5,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 6,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 7,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            },
+            {
+              "bar": 8,
+              "chord": "UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2"
+            }
+          ],
+          "rhythm_pattern": "lofi_straight_8th",
+          "tempo_bpm": 84,
+          "voicing_style": "drop2_voicing",
+          "texture_density": 0.45,
+          "instrumentation": {
+            "lead": "rhodes_electric_piano",
+            "bass": "upright_bass",
+            "percussion": "lofi_brushed_kit",
+            "ambient": "vinyl_crackle"
+          }
+        },
+        "reservations": [
+          "The FULL bar-by-bar chord map for input_song_idx 2 was not provided in the evidence, so I cannot specify or modify the actual per-bar chords (including any sus/maj7/min7/min11 extensions) without the true progression."
+        ],
+        "disagreements": [
+          "None (in this round I cannot validate or alter the placeholder chord progression because the real input progression is missing from the provided evidence)."
+        ]
+      },
+      "hard_rule_tradition": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 84 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": []
+      },
+      "hard_rule_style": {
+        "passed": false,
+        "violations": [
+          {
+            "rule": "tempo_bound",
+            "detail": "proposed tempo 84 not within ±20% of input 60.0"
+          }
+        ],
+        "warnings": []
+      },
+      "validator": {
+        "verdict_per_aspect": [
+          {
+            "aspect": "chord_progression",
+            "tradition_position": "Uses placeholder UNKNOWN chords for bars 1–10; recommends preserving exact bar-by-bar harmonic rhythm once the real input progression is available.",
+            "style_position": "Uses placeholder UNKNOWN_FROM_RETRIEVAL_INPUT_SONG_IDX_2 chords for bars 1–8; cannot specify real per-bar chords without the input progression evidence.",
+            "agreement": "partial",
+            "recommendation": "compromise",
+            "reasoning": "Both proposals do not actually provide the real input chord_progression_by_bar (placeholders are used), so I cannot judge harmonic motion smoothness, tension, or stylistic fit against the true bar-by-bar map. Soft-rule preference: Tradition Guardian is slightly more aligned with the requirement to cover the FULL bar-by-bar progression (bars 1–10) and explicitly calls out preserving bar-to-bar harmonic rhythm (creative suggestion: once the true progression is available, keep chord centers and harmonic rhythm and only adjust voicing/extension colors). Style Translator is incomplete on bar coverage (only bars 1–8) and also lacks concrete harmonic content."
+          },
+          {
+            "aspect": "rhythm_pattern",
+            "tradition_position": "Chooses lofi_swung_16th.",
+            "style_position": "Chooses lofi_straight_8th.",
+            "agreement": "disagree",
+            "recommendation": "tradition",
+            "reasoning": "Soft-rule: stylistic coherence for 'lo-fi chill' often benefits from a swung 16th feel to create a relaxed, humanized groove and smoother perceived harmonic support (creative suggestion: swung 16ths can help mask abrupt harmonic changes). Style Translator’s straight 8ths can work, but without evidence of the input’s existing groove, the swing choice is the safer bet for lo-fi chill feel continuity. Note: I cannot validate tempo/feel consistency against the input because the only hard evidence given is that the input tempo is 60 BPM and both proposals use 84 BPM."
+          },
+          {
+            "aspect": "tempo/feel consistency",
+            "tradition_position": "Sets tempo_bpm = 84.",
+            "style_position": "Sets tempo_bpm = 84.",
+            "agreement": "agree",
+            "recommendation": "compromise",
+            "reasoning": "Soft-rule: tempo/feel consistency is currently weak because the hard-rule checker flagged both proposals as outside ±20% of the input tempo (input 60 BPM vs proposed 84 BPM). Even if lo-fi chill references cluster around ~83.7 BPM (retrieval claim in Style Translator), the arrangement should still respect the input’s feel identity. Creative suggestion: keep the lo-fi groove character (swing/8th pattern) but adjust tempo closer to the input (e.g., nearer 60 BPM) to avoid a feel mismatch."
+          },
+          {
+            "aspect": "voicing balance / harmonic smoothness",
+            "tradition_position": "Voicing_style = spread_with_9ths; texture_density = 0.45; recommends conservative harmony changes supportive of groove.",
+            "style_position": "Voicing_style = drop2_voicing; texture_density = 0.45; references sus/extended tones as preferred colors but cannot apply them to real chords.",
+            "agreement": "partial",
+            "recommendation": "tradition",
+            "reasoning": "Soft-rule: Tradition Guardian’s 'conservative and supportive' stance better addresses potential melody-harmony tension by avoiding overly leading harmonic motion (and it explicitly ties harmony changes to groove-forward identity). Style Translator’s voicing choice (drop2) is plausible, but since the actual chord tones/extensions are not specified (placeholders), I cannot assess whether the intended maj7/maj9/min7/min11/sus colors would create tension with the melody. Therefore, Tradition Guardian is more actionable for maintaining smoothness given missing harmonic evidence."
+          },
+          {
+            "aspect": "melody–harmony tension (beyond literal clashes)",
+            "tradition_position": "No explicit melody interaction; emphasizes supportive harmony and conservative motion.",
+            "style_position": "No explicit melody interaction; suggests extended/sus harmony colors in general.",
+            "agreement": "partial",
+            "recommendation": "tradition",
+            "reasoning": "Soft-rule: without the real chord map and without melody evidence, neither proposal can be validated for melody–harmony tension. However, Tradition Guardian’s conservative-harmony guidance is less likely to introduce unwanted tension than Style Translator’s general preference for richer extensions (creative suggestion: richer extensions can increase perceived tension if the melody targets chord tones that don’t align well)."
+          }
+        ],
+        "global_concerns": [
+          "Both proposals use placeholder chord names instead of the true input chord_progression_by_bar, so harmonic-motion smoothness and any melody–harmony tension cannot be properly evaluated.",
+          "Tempo identity conflict: both proposals set 84 BPM while the hard-rule checker reports the input tempo is 60 BPM and 84 BPM is outside ±20%.",
+          "Rhythm feel choice cannot be validated against the input groove because the input’s existing rhythm evidence is not provided here."
+        ],
+        "ready_for_synthesis": false
+      },
+      "metrics": {
+        "sim_inter": 0.9528752565383911,
+        "sim_intra_tradition": 0.9528708457946777,
+        "sim_intra_style": 0.9528752565383911,
+        "hard_match_ratio": 0.25
+      }
+    }
+  ],
+  "termination_status": "stalled",
+  "rounds_used": 4,
+  "final_metrics": {
+    "sim_inter": 0.9528752565383911,
+    "sim_intra_tradition": 0.9528708457946777,
+    "sim_intra_style": 0.9528752565383911,
+    "hard_match_ratio": 0.25
+  }
+}

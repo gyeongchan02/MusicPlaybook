@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "input_song_id": "POP909_064",
+    "target_style": "bossa nova",
+    "system_version": "multi_agent_v2_heterogeneous",
+    "timestamp": "2026-06-09T09:39:46",
+    "termination_status": "converged",
+    "rounds_used": 4
+  },
+  "preserved": {
+    "melody_source": "input.MELODY_track",
+    "key": "C minor",
+    "num_bars": 7,
+    "original_chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "section_structure": [
+      {
+        "name": "full_song",
+        "start_bar": 1,
+        "end_bar": 7
+      }
+    ]
+  },
+  "transformations": {
+    "chord_progression": [
+      {
+        "bar": 1,
+        "chord": "F:maj"
+      },
+      {
+        "bar": 2,
+        "chord": "Bb:sus2"
+      },
+      {
+        "bar": 3,
+        "chord": "D:min7/b7"
+      },
+      {
+        "bar": 4,
+        "chord": "C:maj/3"
+      },
+      {
+        "bar": 5,
+        "chord": "F:min"
+      },
+      {
+        "bar": 6,
+        "chord": "C:min"
+      },
+      {
+        "bar": 7,
+        "chord": "F:min"
+      }
+    ],
+    "rhythm_pattern": "bossa_clave",
+    "tempo_bpm": 60,
+    "voicing_style": "bossa_guitar_voicing",
+    "texture_density": 0.48,
+    "instrumentation": {
+      "lead": "nylon_guitar",
+      "bass": "fretless_bass",
+      "percussion": "bossa_shaker_brush",
+      "ambient": null
+    }
+  },
+  "natural_language_summary": "Rearrange POP909_064 into a bossa nova feel while keeping the original 7-bar harmony and the input melody track. Use a bossa_clave groove with a nylon-guitar-led texture and fretless bass support, supported by brushed bossa shaker percussion. Keep the overall arrangement in a moderate texture density band (around 0.48) so the harmony stays smooth and groove-forward rather than overly dense. Maintain the original bar-by-bar chord progression (F:maj → Bb:sus2 → D:min7/b7 → C:maj/3 → F:min → C:min → F:min) as the harmonic backbone."
+}

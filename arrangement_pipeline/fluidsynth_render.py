@@ -152,6 +152,7 @@ def render_midi_with_fluidsynth(
     wav_path: Path,
     reference_wav_path: Path,
     soundfont: Path | None = None,
+    target_peak: float = 0.8912509381,
 ) -> Path:
     """
     Render MIDI with FluidSynth and match reference wav length exactly.
@@ -166,7 +167,7 @@ def render_midi_with_fluidsynth(
         if clip_path != midi_path and clip_path.exists():
             clip_path.unlink(missing_ok=True)
     audio = align_audio_length(audio, target_frames)
-    audio = normalize_peak(audio)
+    audio = normalize_peak(audio, target_peak=target_peak)
 
     wav_path = Path(wav_path)
     wav_path.parent.mkdir(parents=True, exist_ok=True)
